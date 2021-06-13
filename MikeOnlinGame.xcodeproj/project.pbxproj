@@ -7,26 +7,56 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		835900B023803CBDFE8AAAA0 /* Pods_MikeOnlinGame.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9580CFA3C7A0AAD219D1C7B /* Pods_MikeOnlinGame.framework */; };
+		990A3AAC2672612800FBF9BC /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 990A3AAB2672612800FBF9BC /* LoginView.swift */; };
+		990A3ABD2672736800FBF9BC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 990A3ABC2672736800FBF9BC /* GoogleService-Info.plist */; };
+		9984FAFF26675F2C007DEF28 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 9984FAFE26675F2C007DEF28 /* FirebaseCrashlytics */; };
+		99A1AB552673A702004C20E7 /* RegisteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99A1AB542673A702004C20E7 /* RegisteView.swift */; };
 		99C26DB82626D1810076A62F /* MikeOnlinGameApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C26DB72626D1810076A62F /* MikeOnlinGameApp.swift */; };
 		99C26DBA2626D1810076A62F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C26DB92626D1810076A62F /* ContentView.swift */; };
 		99C26DBC2626D1820076A62F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 99C26DBB2626D1820076A62F /* Assets.xcassets */; };
 		99C26DBF2626D1820076A62F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 99C26DBE2626D1820076A62F /* Preview Assets.xcassets */; };
-		99C26DC82626D1E80076A62F /* GoogleService-InfoFinal.plist in Resources */ = {isa = PBXBuildFile; fileRef = 99C26DC72626D1E80076A62F /* GoogleService-InfoFinal.plist */; };
 		99C26DCC2626D4620076A62F /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 99C26DCB2626D4620076A62F /* FirebaseAuth */; };
 		99C26DCE2626D4620076A62F /* FirebaseStorageSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 99C26DCD2626D4620076A62F /* FirebaseStorageSwift-Beta */; };
 		99C26DD02626D4620076A62F /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 99C26DCF2626D4620076A62F /* FirebaseFirestoreSwift-Beta */; };
-		99C26DD32626D6770076A62F /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C26DD22626D6770076A62F /* Data.swift */; };
+		99C26DD32626D6770076A62F /* AdsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C26DD22626D6770076A62F /* AdsData.swift */; };
+		99C6D9062675E94700974C6D /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C6D9052675E94700974C6D /* WebView.swift */; };
+		99C6D90C267617A800974C6D /* PageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C6D90B267617A800974C6D /* PageController.swift */; };
+		99C6D90E26761FC800974C6D /* Function.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C6D90D26761FC800974C6D /* Function.swift */; };
+		99C6D9102676284C00974C6D /* DataOfFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C6D90F2676284C00974C6D /* DataOfFirebase.swift */; };
+		99C6D9122676415500974C6D /* StorageOfFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C6D9112676415500974C6D /* StorageOfFirebase.swift */; };
+		99C76ACC2674FC500030A3E2 /* PlayerWaitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C76ACB2674FC500030A3E2 /* PlayerWaitView.swift */; };
+		99D24025265E2B0500EEE696 /* FirebaseAnalyticsSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 99D24024265E2B0500EEE696 /* FirebaseAnalyticsSwift-Beta */; };
+		99D24027265E303E00EEE696 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D24026265E303E00EEE696 /* AppDelegate.swift */; };
+		99D24029265E351900EEE696 /* UiviewController+Extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D24028265E351900EEE696 /* UiviewController+Extention.swift */; };
+		99D2402B265E367700EEE696 /* AdsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D2402A265E367700EEE696 /* AdsView.swift */; };
+		99D2402F265E440B00EEE696 /* GADBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D2402E265E440B00EEE696 /* GADBannerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		21C862FA244BF14AC68AFA21 /* Pods-MikeOnlinGame.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MikeOnlinGame.debug.xcconfig"; path = "Target Support Files/Pods-MikeOnlinGame/Pods-MikeOnlinGame.debug.xcconfig"; sourceTree = "<group>"; };
+		52464821F207E68169B8B145 /* Pods-MikeOnlinGame.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MikeOnlinGame.release.xcconfig"; path = "Target Support Files/Pods-MikeOnlinGame/Pods-MikeOnlinGame.release.xcconfig"; sourceTree = "<group>"; };
+		990A3AAB2672612800FBF9BC /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		990A3ABC2672736800FBF9BC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		99A1AB542673A702004C20E7 /* RegisteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisteView.swift; sourceTree = "<group>"; };
 		99C26DB42626D1810076A62F /* MikeOnlinGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MikeOnlinGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		99C26DB72626D1810076A62F /* MikeOnlinGameApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MikeOnlinGameApp.swift; sourceTree = "<group>"; };
 		99C26DB92626D1810076A62F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		99C26DBB2626D1820076A62F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		99C26DBE2626D1820076A62F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		99C26DC02626D1820076A62F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		99C26DC72626D1E80076A62F /* GoogleService-InfoFinal.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-InfoFinal.plist"; sourceTree = "<group>"; };
-		99C26DD22626D6770076A62F /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		99C26DD22626D6770076A62F /* AdsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdsData.swift; sourceTree = "<group>"; };
+		99C6D9052675E94700974C6D /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
+		99C6D90B267617A800974C6D /* PageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageController.swift; sourceTree = "<group>"; };
+		99C6D90D26761FC800974C6D /* Function.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Function.swift; sourceTree = "<group>"; };
+		99C6D90F2676284C00974C6D /* DataOfFirebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataOfFirebase.swift; sourceTree = "<group>"; };
+		99C6D9112676415500974C6D /* StorageOfFirebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageOfFirebase.swift; sourceTree = "<group>"; };
+		99C76ACB2674FC500030A3E2 /* PlayerWaitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerWaitView.swift; sourceTree = "<group>"; };
+		99D24026265E303E00EEE696 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		99D24028265E351900EEE696 /* UiviewController+Extention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UiviewController+Extention.swift"; sourceTree = "<group>"; };
+		99D2402A265E367700EEE696 /* AdsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdsView.swift; sourceTree = "<group>"; };
+		99D2402E265E440B00EEE696 /* GADBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GADBannerView.swift; sourceTree = "<group>"; };
+		A9580CFA3C7A0AAD219D1C7B /* Pods_MikeOnlinGame.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MikeOnlinGame.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,18 +66,43 @@
 			files = (
 				99C26DD02626D4620076A62F /* FirebaseFirestoreSwift-Beta in Frameworks */,
 				99C26DCC2626D4620076A62F /* FirebaseAuth in Frameworks */,
+				99D24025265E2B0500EEE696 /* FirebaseAnalyticsSwift-Beta in Frameworks */,
+				9984FAFF26675F2C007DEF28 /* FirebaseCrashlytics in Frameworks */,
 				99C26DCE2626D4620076A62F /* FirebaseStorageSwift-Beta in Frameworks */,
+				835900B023803CBDFE8AAAA0 /* Pods_MikeOnlinGame.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4272C42955DC70E7E9D7B2DE /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				21C862FA244BF14AC68AFA21 /* Pods-MikeOnlinGame.debug.xcconfig */,
+				52464821F207E68169B8B145 /* Pods-MikeOnlinGame.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		990A3AB72672706400FBF9BC /* Firsebase */ = {
+			isa = PBXGroup;
+			children = (
+				99C26DD22626D6770076A62F /* AdsData.swift */,
+				99C6D90F2676284C00974C6D /* DataOfFirebase.swift */,
+				99C6D9112676415500974C6D /* StorageOfFirebase.swift */,
+				99C6D90D26761FC800974C6D /* Function.swift */,
+			);
+			path = Firsebase;
+			sourceTree = "<group>";
+		};
 		99C26DAB2626D1810076A62F = {
 			isa = PBXGroup;
 			children = (
 				99C26DB62626D1810076A62F /* MikeOnlinGame */,
 				99C26DB52626D1810076A62F /* Products */,
+				99D24023265E2B0500EEE696 /* Frameworks */,
+				4272C42955DC70E7E9D7B2DE /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -62,13 +117,22 @@
 		99C26DB62626D1810076A62F /* MikeOnlinGame */ = {
 			isa = PBXGroup;
 			children = (
+				990A3AB72672706400FBF9BC /* Firsebase */,
 				99C26DB72626D1810076A62F /* MikeOnlinGameApp.swift */,
-				99C26DD22626D6770076A62F /* Data.swift */,
+				99D2402A265E367700EEE696 /* AdsView.swift */,
+				990A3AAB2672612800FBF9BC /* LoginView.swift */,
+				99A1AB542673A702004C20E7 /* RegisteView.swift */,
+				99C6D90B267617A800974C6D /* PageController.swift */,
+				99C76ACB2674FC500030A3E2 /* PlayerWaitView.swift */,
+				99C6D9052675E94700974C6D /* WebView.swift */,
+				99D24026265E303E00EEE696 /* AppDelegate.swift */,
 				99C26DB92626D1810076A62F /* ContentView.swift */,
 				99C26DBB2626D1820076A62F /* Assets.xcassets */,
 				99C26DC02626D1820076A62F /* Info.plist */,
-				99C26DC72626D1E80076A62F /* GoogleService-InfoFinal.plist */,
+				990A3ABC2672736800FBF9BC /* GoogleService-Info.plist */,
 				99C26DBD2626D1820076A62F /* Preview Content */,
+				99D24028265E351900EEE696 /* UiviewController+Extention.swift */,
+				99D2402E265E440B00EEE696 /* GADBannerView.swift */,
 			);
 			path = MikeOnlinGame;
 			sourceTree = "<group>";
@@ -81,6 +145,14 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		99D24023265E2B0500EEE696 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A9580CFA3C7A0AAD219D1C7B /* Pods_MikeOnlinGame.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -88,9 +160,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 99C26DC32626D1820076A62F /* Build configuration list for PBXNativeTarget "MikeOnlinGame" */;
 			buildPhases = (
+				324F1BBAFCC24F56902A4C51 /* [CP] Check Pods Manifest.lock */,
 				99C26DB02626D1810076A62F /* Sources */,
 				99C26DB12626D1810076A62F /* Frameworks */,
 				99C26DB22626D1810076A62F /* Resources */,
+				3A0006E98583A7ABBC921F26 /* [CP] Embed Pods Frameworks */,
+				9984FB0026675F43007DEF28 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -101,6 +176,8 @@
 				99C26DCB2626D4620076A62F /* FirebaseAuth */,
 				99C26DCD2626D4620076A62F /* FirebaseStorageSwift-Beta */,
 				99C26DCF2626D4620076A62F /* FirebaseFirestoreSwift-Beta */,
+				99D24024265E2B0500EEE696 /* FirebaseAnalyticsSwift-Beta */,
+				9984FAFE26675F2C007DEF28 /* FirebaseCrashlytics */,
 			);
 			productName = MikeOnlinGame;
 			productReference = 99C26DB42626D1810076A62F /* MikeOnlinGame.app */;
@@ -127,6 +204,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hant",
 			);
 			mainGroup = 99C26DAB2626D1810076A62F;
 			packageReferences = (
@@ -148,20 +226,93 @@
 			files = (
 				99C26DBF2626D1820076A62F /* Preview Assets.xcassets in Resources */,
 				99C26DBC2626D1820076A62F /* Assets.xcassets in Resources */,
-				99C26DC82626D1E80076A62F /* GoogleService-InfoFinal.plist in Resources */,
+				990A3ABD2672736800FBF9BC /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		324F1BBAFCC24F56902A4C51 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MikeOnlinGame-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3A0006E98583A7ABBC921F26 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MikeOnlinGame/Pods-MikeOnlinGame-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MikeOnlinGame/Pods-MikeOnlinGame-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MikeOnlinGame/Pods-MikeOnlinGame-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9984FB0026675F43007DEF28 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${BUILD_DIR%Build/*}SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		99C26DB02626D1810076A62F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				99C76ACC2674FC500030A3E2 /* PlayerWaitView.swift in Sources */,
+				99D24029265E351900EEE696 /* UiviewController+Extention.swift in Sources */,
+				99C6D90E26761FC800974C6D /* Function.swift in Sources */,
+				99D24027265E303E00EEE696 /* AppDelegate.swift in Sources */,
+				99C6D9122676415500974C6D /* StorageOfFirebase.swift in Sources */,
 				99C26DBA2626D1810076A62F /* ContentView.swift in Sources */,
-				99C26DD32626D6770076A62F /* Data.swift in Sources */,
+				99A1AB552673A702004C20E7 /* RegisteView.swift in Sources */,
+				99D2402B265E367700EEE696 /* AdsView.swift in Sources */,
+				99C26DD32626D6770076A62F /* AdsData.swift in Sources */,
+				99D2402F265E440B00EEE696 /* GADBannerView.swift in Sources */,
+				99C6D90C267617A800974C6D /* PageController.swift in Sources */,
+				990A3AAC2672612800FBF9BC /* LoginView.swift in Sources */,
 				99C26DB82626D1810076A62F /* MikeOnlinGameApp.swift in Sources */,
+				99C6D9062675E94700974C6D /* WebView.swift in Sources */,
+				99C6D9102676284C00974C6D /* DataOfFirebase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,10 +437,12 @@
 		};
 		99C26DC42626D1820076A62F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 21C862FA244BF14AC68AFA21 /* Pods-MikeOnlinGame.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"MikeOnlinGame/Preview Content\"";
 				DEVELOPMENT_TEAM = 5TL8PL3VGP;
 				ENABLE_PREVIEWS = YES;
@@ -308,6 +461,7 @@
 		};
 		99C26DC52626D1820076A62F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 52464821F207E68169B8B145 /* Pods-MikeOnlinGame.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -363,6 +517,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		9984FAFE26675F2C007DEF28 /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 99C26DCA2626D4620076A62F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
+		};
 		99C26DCB2626D4620076A62F /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 99C26DCA2626D4620076A62F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
@@ -377,6 +536,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 99C26DCA2626D4620076A62F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = "FirebaseFirestoreSwift-Beta";
+		};
+		99D24024265E2B0500EEE696 /* FirebaseAnalyticsSwift-Beta */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 99C26DCA2626D4620076A62F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseAnalyticsSwift-Beta";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

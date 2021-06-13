@@ -10,11 +10,11 @@ import Firebase
 
 @main
 struct MikeOnlinGameApp: App {
-    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    @UIApplicationDelegateAdaptor(AppDelegateFirebase.self) var delegate
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            PageController()
         }
     }
 }
