@@ -10,13 +10,19 @@ import FirebaseAuth
 
 struct LoginView: View {
     @Binding var currentPage:pages
-    @State private var playerAccound = ""
+    @Binding var playerAccound: String
+    @Binding var name: String
+    @Binding var date:Date
+    @Binding var showEidtorView:Bool
+    @Binding var image:UIImage?
     @State private var playerPassword = ""
     @State private var showAlert = false
     @State private var alertMessage = "歡迎～請先註冊～"
     @State var showregisteView = false
     @State private var showPassword = false
     @State private var showpasswords = "eye.slash"
+    @ObservedObject  var firebaseData : FirebaseData
+    //這裡是按下登入後會跑得function ，記得直接登入做的function這裡也須要有。
     func login(playerAccoundLogin:String, playerPasswordLogin:String) {
         Auth.auth().signIn(withEmail: playerAccound, password: playerPassword) { result, error in
              guard error == nil else {
@@ -27,6 +33,45 @@ struct LoginView: View {
                 print(error?.localizedDescription)
                 return
              }
+            fetchPlayers(email: playerAccound){ result in
+                switch result {
+                    case .success(let player):
+                        firebaseData.player = player
+                        
+                    case .failure(let error):
+                        print(error)
+                    break
+                }
+            }
+            fetchPlayersOnce(email: playerAccound){ result in
+                switch result {
+                    case .success(let playerOnce):
+                        firebaseData.playerOnce = playerOnce
+                        name = playerOnce.playername
+                        date = playerOnce.joinDate
+                    case .failure(let error):
+                        print(error)
+                    break
+                }
+            }
+            fetchPlayersPhoto(email: playerAccound){ result in
+                switch result {
+                    case .success(let playerPhoto):
+                        downloadUserImage(str:"role", url: playerPhoto.photoURL){ result in
+                            switch result {
+                            case .success(let downloadImage):
+                                image = downloadImage
+                            case .failure(_):
+                                break
+                            }
+                        }
+                        
+                    case .failure(let error):
+                        print(error)
+                    break
+                }
+            }
+            showEidtorView = false
             currentPage = pages.PlayerWaitView
            
         }
@@ -139,7 +184,7 @@ struct LoginView: View {
         }
         .padding()
         .fullScreenCover(isPresented: $showregisteView, content: {
-            RegisteView(currentpage: $currentPage, showRegisteView: $showregisteView)
+            RegisteView(currentpage: $currentPage, showEidtorView: $showEidtorView, playerName: $name, playerAccoundRegiste: $playerAccound, showRegisteView: $showregisteView)
         })
         .alert(isPresented: $showAlert, content: {() -> Alert in
             let answer = alertMessage
@@ -149,6 +194,45 @@ struct LoginView: View {
           
             if let user = Auth.auth().currentUser {
                 print("\(user.uid) login")
+                playerAccound = user.email!
+                fetchPlayers(email: playerAccound){ result in
+                    switch result {
+                        case .success(let player):
+                            firebaseData.player = player
+                            print("Datashow:",firebaseData.player)
+                        case .failure(let error):
+                            print(error)
+                        break
+                    }
+                }
+                fetchPlayersOnce(email: playerAccound){ result in
+                    switch result {
+                        case .success(let playerOnce):
+                            name = playerOnce.playername
+                            date = playerOnce.joinDate
+                        case .failure(let error):
+                            print(error)
+                        break
+                    }
+                }
+                fetchPlayersPhoto(email: playerAccound){ result in
+                    switch result {
+                        case .success(let playerPhoto):
+                            downloadUserImage(str:"role", url: playerPhoto.photoURL){ result in
+                                switch result {
+                                case .success(let downloadImage):
+                                    image = downloadImage
+                                case .failure(_):
+                                    break
+                                }
+                            }
+                            
+                        case .failure(let error):
+                            print(error)
+                        break
+                    }
+                }
+                showEidtorView = false
                 currentPage = pages.PlayerWaitView
             } else {
                 print("not login")
@@ -161,7 +245,7 @@ struct LoginView: View {
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView(currentPage: .constant(pages.LoginView))
+        LoginView(currentPage: .constant(pages.LoginView), playerAccound: .constant(""), name: .constant(""), date: .constant(Date()), showEidtorView: .constant(false), image: .constant(UIImage(systemName: "photo")), firebaseData: FirebaseData())
             .previewLayout(.fixed(width: 651, height: 297))
     }
 }

@@ -14,7 +14,7 @@ struct Player: Codable, Identifiable {
     var constellation: String
     var birthday: Date
     var nickName: String
-    
+    var gender: String
 }
 
 struct PlayerOnce: Codable, Identifiable {
@@ -25,70 +25,108 @@ struct PlayerOnce: Codable, Identifiable {
     
 }
 
+struct PlayerPhoto:Codable, Identifiable {
+    @DocumentID var id: String?
+    let photoURL: URL
+}
+
+class FirebaseData: ObservableObject {
+    
+    @Published var player = Player(constellation: "", birthday: Date(), nickName: "", gender: "")
+    @Published var playerOnce = PlayerOnce(playername: "", joinDate: Date(), email: "")
+    
+
+   
+}
+
 //新增(可更動)
-func createPlayer(storeData:Player) {
+func createPlayer(storeData:Player, email:String) {
     let db = Firestore.firestore()
     let player = storeData
     do {
 //        let documentReference = try db.collection("players").addDocument(from: player) // 不指定文件id
 //        print(documentReference.documentID)
-        try db.collection("players").document("玩家資訊").setData(from: player) // 指定id的寫法
+        try db.collection("players").document(email).setData(from: player) // 指定id的寫法
     } catch {
         print(error)
     }
 }
 //新增(不可更動)
-func createPlayerOnce(storeData:PlayerOnce) {
+func createPlayerOnce(storeData:PlayerOnce, email:String) {
     let db = Firestore.firestore()
     let PlayerOnce = storeData
     do {
 //        let documentReference = try db.collection("players").addDocument(from: player) // 不指定文件id
 //        print(documentReference.documentID)
-        try db.collection("players").document("玩家資訊").setData(from: PlayerOnce) // 指定id的寫法
+        try db.collection("playersOnce").document(email).setData(from: PlayerOnce) // 指定id的寫法
     } catch {
         print(error)
     }
 }
 
-//載入
-func fetchPlayersOnce()->[PlayerOnce]{
+//新增個人圖片的URL
+func createPlayerPhotoURL(storeURL:PlayerPhoto, email:String) {
     let db = Firestore.firestore()
-    var players = [PlayerOnce]()
-    
-    db.collection("players").getDocuments { snapshot, error in
-        
-        guard let snapshot = snapshot else {
-                print(error)
-                return
-            
-        }
-        
-         players = snapshot.documents.compactMap { snapshot in
-            try? snapshot.data(as: PlayerOnce.self)
-        }
-        
-        print(players[0],"殘念啊")
-        
+    let URL = storeURL
+    do{
+        try db.collection("playersPhoto").document(email).setData(from: URL)
+    }catch{
+        print("失敗",error)
     }
-    return players
 }
 
-func fetchPlayers()->[Player]{
+//載入
+func fetchPlayersOnce(email:String,completion: @escaping(Result<PlayerOnce,Error>)->Void){
     let db = Firestore.firestore()
-    var players = [Player]()
-    
-    db.collection("players").getDocuments { snapshot, error in
+    db.collection("playersOnce").document(email).getDocument { document, error in
         
-        guard let snapshot = snapshot else { return }
-        
-         players = snapshot.documents.compactMap { snapshot in
-            try? snapshot.data(as: Player.self)
+        guard let document = document,document.exists,let player = try?document.data(as: PlayerOnce.self)else
+        {
+            if let error = error{
+                print("錯誤訊息：",error)
+                completion(.failure(error))
+            }
+            return
         }
-        
-        print(players)
-        
+       
+        completion(.success(player))
     }
-    return players
+    
+}
+
+
+func fetchPlayers(email:String,completion: @escaping(Result<Player,Error>)->Void){
+    let db = Firestore.firestore()
+    db.collection("players").document(email).getDocument { document, error in
+        
+        guard let document = document,document.exists,let player = try?document.data(as: Player.self)else
+        {
+            if let error = error{
+                print("錯誤訊息：",error)
+                completion(.failure(error))
+            }
+            return
+        }
+       
+        completion(.success(player))
+    }
+}
+
+func fetchPlayersPhoto(email:String,completion: @escaping(Result<PlayerPhoto,Error>)->Void){
+    let db = Firestore.firestore()
+    db.collection("playersPhoto").document(email).getDocument { document, error in
+        
+        guard let document = document,document.exists,let playerPhoto = try?document.data(as: PlayerPhoto.self)else
+        {
+            if let error = error{
+                print("錯誤訊息：",error)
+                completion(.failure(error))
+            }
+            return
+        }
+       
+        completion(.success(playerPhoto))
+    }
 }
 
 // Check 狀態

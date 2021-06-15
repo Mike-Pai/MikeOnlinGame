@@ -11,10 +11,11 @@ import FirebaseAuth
 struct RegisteView: View {
     
     @Binding var currentpage : pages
+    @Binding var showEidtorView: Bool
     @State private var alertMessage = ""
     @State var showAlert = false
-    @State private var playerName = ""
-    @State private var playerAccoundRegiste = ""
+    @Binding var playerName :String
+    @Binding var playerAccoundRegiste : String
     @State private var playerPasswordRegister = ""
     @Binding var showRegisteView:Bool
     @State private var showPassword = false
@@ -29,7 +30,7 @@ struct RegisteView: View {
                 print(user.email, user.uid)
                 
                 let playerOnce = PlayerOnce(playername: playerName, joinDate: Date(), email: playerAccoundRegiste)
-                createPlayerOnce(storeData: playerOnce)
+                createPlayerOnce(storeData: playerOnce, email: playerAccoundRegiste)
                 alertMessage = "😆註冊成功😆"
                 registerState = true
                 showAlert = true
@@ -118,8 +119,10 @@ struct RegisteView: View {
             dismissButton: .destructive(Text("確定")) {
                 if registerState {
                     
-                   
+                    
+                        showEidtorView = true
                     currentpage = pages.PlayerWaitView
+                    
                 }
             }
         )
@@ -130,7 +133,7 @@ struct RegisteView: View {
 
 struct RegisteView_Previews: PreviewProvider {
     static var previews: some View {
-        RegisteView(currentpage: .constant(pages.RegisteView), showRegisteView: .constant(true))
+        RegisteView(currentpage: .constant(pages.RegisteView), showEidtorView: .constant(true), playerName: .constant(""), playerAccoundRegiste: .constant(""), showRegisteView: .constant(true))
             .previewLayout(.fixed(width: 651, height: 297))
     }
 }

@@ -26,6 +26,7 @@
 		99C6D9102676284C00974C6D /* DataOfFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C6D90F2676284C00974C6D /* DataOfFirebase.swift */; };
 		99C6D9122676415500974C6D /* StorageOfFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C6D9112676415500974C6D /* StorageOfFirebase.swift */; };
 		99C76ACC2674FC500030A3E2 /* PlayerWaitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C76ACB2674FC500030A3E2 /* PlayerWaitView.swift */; };
+		99C8854226777F4300F5B281 /* CreateRoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C8854126777F4300F5B281 /* CreateRoleView.swift */; };
 		99D24025265E2B0500EEE696 /* FirebaseAnalyticsSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 99D24024265E2B0500EEE696 /* FirebaseAnalyticsSwift-Beta */; };
 		99D24027265E303E00EEE696 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D24026265E303E00EEE696 /* AppDelegate.swift */; };
 		99D24029265E351900EEE696 /* UiviewController+Extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D24028265E351900EEE696 /* UiviewController+Extention.swift */; };
@@ -52,6 +53,7 @@
 		99C6D90F2676284C00974C6D /* DataOfFirebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataOfFirebase.swift; sourceTree = "<group>"; };
 		99C6D9112676415500974C6D /* StorageOfFirebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageOfFirebase.swift; sourceTree = "<group>"; };
 		99C76ACB2674FC500030A3E2 /* PlayerWaitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerWaitView.swift; sourceTree = "<group>"; };
+		99C8854126777F4300F5B281 /* CreateRoleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoleView.swift; sourceTree = "<group>"; };
 		99D24026265E303E00EEE696 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		99D24028265E351900EEE696 /* UiviewController+Extention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UiviewController+Extention.swift"; sourceTree = "<group>"; };
 		99D2402A265E367700EEE696 /* AdsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdsView.swift; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 				99C6D90B267617A800974C6D /* PageController.swift */,
 				99C76ACB2674FC500030A3E2 /* PlayerWaitView.swift */,
 				99C6D9052675E94700974C6D /* WebView.swift */,
+				99C8854126777F4300F5B281 /* CreateRoleView.swift */,
 				99D24026265E303E00EEE696 /* AppDelegate.swift */,
 				99C26DB92626D1810076A62F /* ContentView.swift */,
 				99C26DBB2626D1820076A62F /* Assets.xcassets */,
@@ -298,6 +301,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				99C8854226777F4300F5B281 /* CreateRoleView.swift in Sources */,
 				99C76ACC2674FC500030A3E2 /* PlayerWaitView.swift in Sources */,
 				99D24029265E351900EEE696 /* UiviewController+Extention.swift in Sources */,
 				99C6D90E26761FC800974C6D /* Function.swift in Sources */,
