@@ -11,6 +11,8 @@
 		990A3AAC2672612800FBF9BC /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 990A3AAB2672612800FBF9BC /* LoginView.swift */; };
 		990A3ABD2672736800FBF9BC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 990A3ABC2672736800FBF9BC /* GoogleService-Info.plist */; };
 		9984FAFF26675F2C007DEF28 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 9984FAFE26675F2C007DEF28 /* FirebaseCrashlytics */; };
+		9998AAEC2679E76B0039D8CF /* GameWaitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9998AAEB2679E76B0039D8CF /* GameWaitView.swift */; };
+		9998AAEE267A373B0039D8CF /* CreateGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9998AAED267A373B0039D8CF /* CreateGameView.swift */; };
 		99A1AB552673A702004C20E7 /* RegisteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99A1AB542673A702004C20E7 /* RegisteView.swift */; };
 		99C26DB82626D1810076A62F /* MikeOnlinGameApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C26DB72626D1810076A62F /* MikeOnlinGameApp.swift */; };
 		99C26DBA2626D1810076A62F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C26DB92626D1810076A62F /* ContentView.swift */; };
@@ -39,6 +41,8 @@
 		52464821F207E68169B8B145 /* Pods-MikeOnlinGame.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MikeOnlinGame.release.xcconfig"; path = "Target Support Files/Pods-MikeOnlinGame/Pods-MikeOnlinGame.release.xcconfig"; sourceTree = "<group>"; };
 		990A3AAB2672612800FBF9BC /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		990A3ABC2672736800FBF9BC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9998AAEB2679E76B0039D8CF /* GameWaitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameWaitView.swift; sourceTree = "<group>"; };
+		9998AAED267A373B0039D8CF /* CreateGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGameView.swift; sourceTree = "<group>"; };
 		99A1AB542673A702004C20E7 /* RegisteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisteView.swift; sourceTree = "<group>"; };
 		99C26DB42626D1810076A62F /* MikeOnlinGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MikeOnlinGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		99C26DB72626D1810076A62F /* MikeOnlinGameApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MikeOnlinGameApp.swift; sourceTree = "<group>"; };
@@ -126,6 +130,8 @@
 				99A1AB542673A702004C20E7 /* RegisteView.swift */,
 				99C6D90B267617A800974C6D /* PageController.swift */,
 				99C76ACB2674FC500030A3E2 /* PlayerWaitView.swift */,
+				9998AAED267A373B0039D8CF /* CreateGameView.swift */,
+				9998AAEB2679E76B0039D8CF /* GameWaitView.swift */,
 				99C6D9052675E94700974C6D /* WebView.swift */,
 				99C8854126777F4300F5B281 /* CreateRoleView.swift */,
 				99D24026265E303E00EEE696 /* AppDelegate.swift */,
@@ -312,6 +318,8 @@
 				99D2402B265E367700EEE696 /* AdsView.swift in Sources */,
 				99C26DD32626D6770076A62F /* AdsData.swift in Sources */,
 				99D2402F265E440B00EEE696 /* GADBannerView.swift in Sources */,
+				9998AAEC2679E76B0039D8CF /* GameWaitView.swift in Sources */,
+				9998AAEE267A373B0039D8CF /* CreateGameView.swift in Sources */,
 				99C6D90C267617A800974C6D /* PageController.swift in Sources */,
 				990A3AAC2672612800FBF9BC /* LoginView.swift in Sources */,
 				99C26DB82626D1810076A62F /* MikeOnlinGameApp.swift in Sources */,

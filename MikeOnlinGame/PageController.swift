@@ -9,7 +9,7 @@ import SwiftUI
 import FirebaseAuth
 
 enum pages{
-    case LoginView, PlayerWaitView, RegisteView, CreateRoleView
+    case LoginView, PlayerWaitView, RegisteView, CreateRoleView, GameWaitView
 }
 struct PageController: View {
     @State var currentPage = pages.LoginView
@@ -24,9 +24,12 @@ struct PageController: View {
             switch currentPage
             {
             case pages.LoginView: LoginView(currentPage: $currentPage, playerAccound: $email, name: $name, date: $date, showEidtorView: $showEidtorView, image: $image, firebaseData: firebaseData)
-            case pages.PlayerWaitView: PlayerWaitView(currentPage: $currentPage, email: $email, playerName: $name, date: $date, showEidtorView: $showEidtorView, image: $image, firebaseData: firebaseData)
+            case pages.PlayerWaitView: PlayerWaitView(firebaseData: firebaseData, currentPage: $currentPage, email: $email, playerName: $name, date: $date, showEidtorView: $showEidtorView, image: $image)
             case pages.RegisteView: RegisteView(currentpage: $currentPage, showEidtorView: $showEidtorView, playerName: $name, playerAccoundRegiste: $email, showRegisteView: .constant(false))
             case pages.CreateRoleView: CreateRoleView(currentpage: $currentPage, uiImage: $image, email: $email)
+           
+            case .GameWaitView: GameWaitView(currentpage: $currentPage, uiImage: $image, email: $email, firebaseData: firebaseData)
+                
             }
         }
 //        .onAppear(){

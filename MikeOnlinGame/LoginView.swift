@@ -5,6 +5,8 @@
 //  Created by 白謹瑜 on 2021/6/10.
 //
 
+//  待處理 ： 帳號及密碼輸錯的 Alert ～
+
 import SwiftUI
 import FirebaseAuth
 
@@ -91,7 +93,7 @@ struct LoginView: View {
                 .offset(x: 10, y: -15)
                 .shadow(radius: 30)
                 .background(
-                    Image("彌豆子")
+                    Image("彌豆子") //圖片還沒加哦
                         .resizable()
                         .scaledToFit()
                         .rotationEffect(Angle(degrees: -30))
@@ -99,7 +101,7 @@ struct LoginView: View {
                         .offset(x: -185, y: -70)
                 )
                 .background(
-                    Image("善逸")
+                    Image("善逸") //圖片還沒加哦
                         .resizable()
                         .scaledToFit()
                         .rotationEffect(Angle(degrees: 30))
@@ -111,7 +113,7 @@ struct LoginView: View {
                 Text("帳號：")
                     .font(.title2)
                     .padding(.leading, 100.0)
-                TextField("********@gmail.com", text: $playerAccound)
+                TextField("********@email", text: $playerAccound)
                     .font(.title2)
                     .background(
                         Rectangle()
@@ -238,6 +240,12 @@ struct LoginView: View {
                 print("not login")
             }
         }
+        .background(
+            Image("Image1")
+                .resizable()
+                .scaledToFill()
+                .ignoresSafeArea()
+        )
         
         
     }

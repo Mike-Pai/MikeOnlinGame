@@ -8,6 +8,7 @@
 import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import SwiftUI
 
 struct Player: Codable, Identifiable {
     @DocumentID var id: String?
@@ -32,11 +33,10 @@ struct PlayerPhoto:Codable, Identifiable {
 
 class FirebaseData: ObservableObject {
     
-    @Published var player = Player(constellation: "", birthday: Date(), nickName: "", gender: "")
+    @Published var player = Player(constellation: "水瓶座", birthday: Date(), nickName: "", gender: "男")
     @Published var playerOnce = PlayerOnce(playername: "", joinDate: Date(), email: "")
     
-
-   
+    
 }
 
 //新增(可更動)
