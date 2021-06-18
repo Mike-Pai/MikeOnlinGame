@@ -10,14 +10,22 @@
 import SwiftUI
 
 struct CreateGameView: View {
+    @ObservedObject var firebaseData : FirebaseData
+    
     @Binding var showCreategame : Bool
     @Binding var currentPage: pages
     @Binding var isCreater:Bool
     @Binding var radius:CGFloat
     @Binding var buttondisable:Bool
+    @Binding var roomNumber :String
+    
+    
     
     @State var money :CGFloat = 30000
-    @State var roomNumber = ""
+    @State var showAlert = false
+    @State var alertMessage = ""
+    @State var roleChose = 0
+    
     var body: some View {
         ZStack{
             Rectangle()
@@ -46,13 +54,14 @@ struct CreateGameView: View {
                                     .resizable()
                                     .scaledToFit()
                             })
-                            .frame(width: 30, height: 30, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                            .frame(width: 30, height: 30, alignment: .center)
                             .offset(x:-20)
+                            
                             
                         }
                         HStack(alignment: .center){
                             Spacer()
-                            RoleView(showChangeRole: .constant(true))
+                            RoleView(showChangeRole: .constant(true), roleChose: $roleChose)
                             Spacer()
                             if isCreater {
                                 VStack{
@@ -76,10 +85,22 @@ struct CreateGameView: View {
                         }
                         if isCreater {
                             Button(action: {
-                                buttondisable = false
-                                radius = 0
-                                showCreategame = false
-                                currentPage = pages.GameWaitView
+                                    buttondisable = false
+                                    radius = 0
+                                    showCreategame = false
+                                    let roomNumberID = Int.random(in: 1000...10000)
+                                    roomNumber = String(roomNumberID)
+                                    print(roomNumberID)
+                                    let roomData = roomData(roomNumber: String(roomNumberID), personalemail: firebaseData.playerOnce.email, personalnickName: firebaseData.player.nickName, personalChoseRole: roleChose, isHost: true, isready: false)
+                                    createRoom(roomData: roomData, roomNumber: String(roomNumberID), email: firebaseData.playerOnce.email)
+                               
+                                   
+ 
+                                   
+                                
+                                    currentPage = pages.GameWaitView
+                                   
+                                
                             }, label: {
                                 Text("完成")
                                     .font(.title3)
@@ -96,7 +117,32 @@ struct CreateGameView: View {
                             Spacer()
                         }else{
                             Button(action: {
-                                
+                                checkRoomexist(roomID: roomNumber) { result in
+                                    switch result {
+                                    case .success(let isExist):
+                                        if isExist{
+                                            let roomData = roomData(roomNumber: roomNumber, personalemail: firebaseData.playerOnce.email, personalnickName: firebaseData.player.nickName, personalChoseRole: roleChose, isHost: false, isready: false)
+                                            createRoom(roomData: roomData, roomNumber: roomNumber, email: firebaseData.playerOnce.email)
+                                           
+                                           
+                                            
+                                            currentPage = pages.GameWaitView
+                                            
+                                        }else{
+                                            alertMessage = "房間不存在"
+                                            showAlert = true
+                                        }
+                                        
+                                        
+                                    case .failure(let error):
+                                        
+                                        alertMessage = "房間不存在"
+                                        showAlert = true
+                                        print(error)
+                                        
+                                        break
+                                    }
+                                }
                             }, label: {
                                 Text("加入")
                                     .font(.title3)
@@ -119,12 +165,18 @@ struct CreateGameView: View {
                 )
             
         }
+        .alert(isPresented: $showAlert, content: {() -> Alert in
+            let answer = alertMessage
+            return Alert(title: Text(answer))
+        })
+        
     }
 }
 
 struct CreateGameView_Previews: PreviewProvider {
     static var previews: some View {
-        CreateGameView(showCreategame: .constant(true), currentPage: .constant(pages.PlayerWaitView), isCreater: .constant(true), radius: .constant(0), buttondisable: .constant(false))
+        CreateGameView(firebaseData: FirebaseData(), showCreategame: .constant(true), currentPage: .constant(pages.PlayerWaitView), isCreater: .constant(true), radius: .constant(0), buttondisable: .constant(false), roomNumber: .constant("") )
             .previewLayout(.fixed(width: 651, height: 297))
+            .environmentObject(FirebaseDataOfRoom())
     }
 }

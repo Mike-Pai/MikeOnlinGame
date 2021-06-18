@@ -35,9 +35,11 @@ class FirebaseData: ObservableObject {
     
     @Published var player = Player(constellation: "水瓶座", birthday: Date(), nickName: "", gender: "男")
     @Published var playerOnce = PlayerOnce(playername: "", joinDate: Date(), email: "")
-    
+
     
 }
+
+
 
 //新增(可更動)
 func createPlayer(storeData:Player, email:String) {

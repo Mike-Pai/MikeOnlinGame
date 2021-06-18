@@ -14,6 +14,8 @@
 		9998AAEC2679E76B0039D8CF /* GameWaitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9998AAEB2679E76B0039D8CF /* GameWaitView.swift */; };
 		9998AAEE267A373B0039D8CF /* CreateGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9998AAED267A373B0039D8CF /* CreateGameView.swift */; };
 		99A1AB552673A702004C20E7 /* RegisteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99A1AB542673A702004C20E7 /* RegisteView.swift */; };
+		99AFF555267C6150008F6559 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 99AFF554267C6150008F6559 /* Kingfisher */; };
+		99AFF557267CD31C008F6559 /* Usedatas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99AFF556267CD31C008F6559 /* Usedatas.swift */; };
 		99C26DB82626D1810076A62F /* MikeOnlinGameApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C26DB72626D1810076A62F /* MikeOnlinGameApp.swift */; };
 		99C26DBA2626D1810076A62F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C26DB92626D1810076A62F /* ContentView.swift */; };
 		99C26DBC2626D1820076A62F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 99C26DBB2626D1820076A62F /* Assets.xcassets */; };
@@ -44,6 +46,7 @@
 		9998AAEB2679E76B0039D8CF /* GameWaitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameWaitView.swift; sourceTree = "<group>"; };
 		9998AAED267A373B0039D8CF /* CreateGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGameView.swift; sourceTree = "<group>"; };
 		99A1AB542673A702004C20E7 /* RegisteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisteView.swift; sourceTree = "<group>"; };
+		99AFF556267CD31C008F6559 /* Usedatas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Usedatas.swift; sourceTree = "<group>"; };
 		99C26DB42626D1810076A62F /* MikeOnlinGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MikeOnlinGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		99C26DB72626D1810076A62F /* MikeOnlinGameApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MikeOnlinGameApp.swift; sourceTree = "<group>"; };
 		99C26DB92626D1810076A62F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -72,6 +75,7 @@
 			files = (
 				99C26DD02626D4620076A62F /* FirebaseFirestoreSwift-Beta in Frameworks */,
 				99C26DCC2626D4620076A62F /* FirebaseAuth in Frameworks */,
+				99AFF555267C6150008F6559 /* Kingfisher in Frameworks */,
 				99D24025265E2B0500EEE696 /* FirebaseAnalyticsSwift-Beta in Frameworks */,
 				9984FAFF26675F2C007DEF28 /* FirebaseCrashlytics in Frameworks */,
 				99C26DCE2626D4620076A62F /* FirebaseStorageSwift-Beta in Frameworks */,
@@ -98,6 +102,7 @@
 				99C6D90F2676284C00974C6D /* DataOfFirebase.swift */,
 				99C6D9112676415500974C6D /* StorageOfFirebase.swift */,
 				99C6D90D26761FC800974C6D /* Function.swift */,
+				99AFF556267CD31C008F6559 /* Usedatas.swift */,
 			);
 			path = Firsebase;
 			sourceTree = "<group>";
@@ -187,6 +192,7 @@
 				99C26DCF2626D4620076A62F /* FirebaseFirestoreSwift-Beta */,
 				99D24024265E2B0500EEE696 /* FirebaseAnalyticsSwift-Beta */,
 				9984FAFE26675F2C007DEF28 /* FirebaseCrashlytics */,
+				99AFF554267C6150008F6559 /* Kingfisher */,
 			);
 			productName = MikeOnlinGame;
 			productReference = 99C26DB42626D1810076A62F /* MikeOnlinGame.app */;
@@ -218,6 +224,7 @@
 			mainGroup = 99C26DAB2626D1810076A62F;
 			packageReferences = (
 				99C26DCA2626D4620076A62F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				99AFF553267C614F008F6559 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 99C26DB52626D1810076A62F /* Products */;
 			projectDirPath = "";
@@ -308,6 +315,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				99C8854226777F4300F5B281 /* CreateRoleView.swift in Sources */,
+				99AFF557267CD31C008F6559 /* Usedatas.swift in Sources */,
 				99C76ACC2674FC500030A3E2 /* PlayerWaitView.swift in Sources */,
 				99D24029265E351900EEE696 /* UiviewController+Extention.swift in Sources */,
 				99C6D90E26761FC800974C6D /* Function.swift in Sources */,
@@ -518,6 +526,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		99AFF553267C614F008F6559 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.3.0;
+			};
+		};
 		99C26DCA2626D4620076A62F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -533,6 +549,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 99C26DCA2626D4620076A62F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseCrashlytics;
+		};
+		99AFF554267C6150008F6559 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 99AFF553267C614F008F6559 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 		99C26DCB2626D4620076A62F /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;

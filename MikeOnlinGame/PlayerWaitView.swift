@@ -29,6 +29,8 @@ struct PlayerWaitView: View {
     @State var radius :CGFloat = 0
     @State private var buttondisable = false
     @Binding var image:UIImage?
+    @Binding var roomNumber:String
+
     
     let genders = ["男", "女","其他"]
     let constellations = ["未公開","魔羯座", "水瓶座", "雙魚座", "牡羊座", "金牛座", "雙子座", "巨蟹座", "獅子座", "處女座", "天秤座", "天蠍座", "射手座", ]
@@ -228,6 +230,7 @@ struct PlayerWaitView: View {
                                             break
                                         }
                                     }
+                                    
                                 }, label: {
                                     Image("Editor")
                                         .resizable()
@@ -347,7 +350,7 @@ struct PlayerWaitView: View {
             })
             .blur(radius: radius)
             if showCreategame{
-                CreateGameView(showCreategame: $showCreategame, currentPage: $currentPage, isCreater: $isCreater, radius: $radius, buttondisable: $buttondisable )
+                CreateGameView(firebaseData: firebaseData, showCreategame: $showCreategame, currentPage: $currentPage, isCreater: $isCreater, radius: $radius, buttondisable: $buttondisable, roomNumber: $roomNumber)
             }
         }
         .background(
@@ -368,8 +371,10 @@ struct PlayerWaitView: View {
 
 struct PlayerWaitView_Previews: PreviewProvider {
     static var previews: some View {
-        PlayerWaitView(firebaseData: FirebaseData(), currentPage: .constant(pages.PlayerWaitView), email: .constant(""), playerName: .constant(""), date: .constant(Date()), showEidtorView: .constant(false), image: .constant(UIImage(systemName: "photo")!))
+        PlayerWaitView( firebaseData: FirebaseData(), currentPage: .constant(pages.PlayerWaitView), email: .constant(""), playerName: .constant(""), date: .constant(Date()), showEidtorView: .constant(false), image: .constant(UIImage(systemName: "photo")!), roomNumber: .constant(""))
             .previewLayout(.fixed(width: 651, height: 335))
+            .environmentObject(FirebaseData())
+            .environmentObject(FirebaseDataOfRoom())
         
     }
 }

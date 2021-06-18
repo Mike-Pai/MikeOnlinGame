@@ -212,6 +212,7 @@ struct LoginView: View {
                         case .success(let playerOnce):
                             name = playerOnce.playername
                             date = playerOnce.joinDate
+                            firebaseData.playerOnce = playerOnce
                         case .failure(let error):
                             print(error)
                         break
