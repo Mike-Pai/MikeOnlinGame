@@ -9,7 +9,7 @@ import SwiftUI
 import FirebaseAuth
 
 enum pages{
-    case LoginView, PlayerWaitView, RegisteView, CreateRoleView, GameWaitView
+    case LoginView, PlayerWaitView, RegisteView, CreateRoleView, GameWaitView, GameView
 }
 struct PageController: View {
     @State var currentPage = pages.LoginView
@@ -28,6 +28,7 @@ struct PageController: View {
     @State var uiImage3 = ""
     @State var uiImage4 = ""
     @StateObject var firebaseData = FirebaseData()
+    @StateObject var firebaseOfRoomdata = FirebaseDataOfRoom()
     var body: some View {
         ZStack{
             switch currentPage
@@ -38,8 +39,8 @@ struct PageController: View {
             case pages.RegisteView: RegisteView(currentpage: $currentPage, showEidtorView: $showEidtorView, playerName: $name, playerAccoundRegiste: $email, showRegisteView: .constant(false))
             case pages.CreateRoleView: CreateRoleView(currentpage: $currentPage, uiImage: $image, email: $email)
            
-            case .GameWaitView: GameWaitView( currentpage: $currentPage, email: $email, inviteNumber: $inviteNumber, firebaseData:  firebaseData)
-                
+            case pages.GameWaitView: GameWaitView( currentpage: $currentPage, email: $email, inviteNumber: $inviteNumber, firebaseData:  firebaseData).environmentObject(firebaseOfRoomdata)
+            case pages.GameView: GameView().environmentObject(firebaseOfRoomdata)
                 
             }
         }

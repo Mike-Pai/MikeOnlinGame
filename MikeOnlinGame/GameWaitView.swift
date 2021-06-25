@@ -5,7 +5,7 @@
 //  Created by 白謹瑜 on 2021/6/16.
 //
 
-//待處理 ： Firebase讀取其他玩家的資料還有畫面(像是尚未加入玩家時的畫面)～
+
 
 import SwiftUI
 import Kingfisher
@@ -19,11 +19,13 @@ struct GameWaitView: View {
     @State var isReadyWord = "準備"
     @State var readyColor = Color.secondary
     @State var showChangeRole = false
+    @State var couldStartGameBtndisable = true
+    @State var money = ""
    
-    let exitNotificaiton = NotificationCenter.default.publisher(for: Notification.Name("Host exit"))
+    let exitNotificaiton = NotificationCenter.default.publisher(for: Notification.Name("Player exit"))
     let startNotificaiton = NotificationCenter.default.publisher(for: Notification.Name("game start"))
 
-    @StateObject var firebaseOfRoomdata = FirebaseDataOfRoom()
+    @EnvironmentObject var firebaseOfRoomdata : FirebaseDataOfRoom
     @ObservedObject var firebaseData : FirebaseData
     var body: some View {
         VStack{
@@ -33,7 +35,8 @@ struct GameWaitView: View {
                     
                     Button(action: {
                         firebaseOfRoomdata.deleteplayer(roomID: inviteNumber, email: email)
-                        currentpage = pages.PlayerWaitView 
+                        NotificationCenter.default.post(name: NSNotification.Name("Player exit"), object: nil)
+                        //第二次加入房間 因為矩陣沒清掉 髓以會多很多個 之後再想怎辦 (直接清掉會造成 Index Out Of range !)
                     }, label: {
                         Image(systemName: "arrowshape.turn.up.backward.circle.fill")
                             .resizable()
@@ -53,7 +56,7 @@ struct GameWaitView: View {
                 )
                 HStack{
                     Spacer()
-                    Text("\(playername) 的房間")
+                    Text("等待室")
                         .font(.title)
                         .fontWeight(.heavy)
                         .foregroundColor(.white)
@@ -72,8 +75,13 @@ struct GameWaitView: View {
             }
             Spacer()
             Button(action: {
-                firebaseOfRoomdata.playerself.isready.toggle()
-                firebaseOfRoomdata.changeIsReady(roomID: inviteNumber, email: email)
+                if firebaseOfRoomdata.playerself.isHost{
+                    firebaseOfRoomdata.changeIsReady(roomID: inviteNumber, email: email)
+                    firebaseOfRoomdata.changeGameToStart(roomID: inviteNumber)
+                }else{
+                    firebaseOfRoomdata.playerself.isready.toggle()
+                    firebaseOfRoomdata.changeIsReady(roomID: inviteNumber, email: email)
+                }
             }, label: {
                 RoundedRectangle(cornerRadius: 5)
                     .foregroundColor(.yellow)
@@ -86,17 +94,19 @@ struct GameWaitView: View {
                     
             })
             .frame(width: 250, height: 40)
+            .disabled(firebaseOfRoomdata.playerself.isHost ? couldStartGameBtndisable : false)
             Spacer()
         }
         .background(
-            Image("Image1")
+            Image("背景圖")
                 .resizable()
                 .scaledToFill()
+                .ignoresSafeArea()
         )
         .onReceive(exitNotificaiton, perform: { _ in
                    print("Host Exit")
 
-//                   appSettings.view = "LobbyView"
+            currentpage = pages.PlayerWaitView
 //                   AVPlayer.waitQueuePlayer.removeAllItems()
 //                   AVPlayer.setupLobbyMusic()
 //                   AVPlayer.lobbyQueuePlayer.volume = Float(0.5)
@@ -105,16 +115,24 @@ struct GameWaitView: View {
                })
                .onReceive(startNotificaiton, perform: { _ in
                    print("Start")
-//                   print(gameSettings.room.GameID)
-//                   gameSettings.roomListener!.remove()
-//                   gameSettings.myIndex = gameSettings.user.roomIndex
-                   DispatchQueue.main.asyncAfter(deadline: .now() + 2){
-//                       appSettings.view = "GameView"
+                
+                let gamePlayer = GamePlayer(rolePosition: 0, goAhead: 0, isChangeToYou: firebaseOfRoomdata.playerself.isHost ? true : false, money: Int(money)!, house: "0", playerIndex: firebaseOfRoomdata.playerself.playerIndex)
+                var gameMapInformation = GameMapInformation( mapIndex: 0, showBuy: false, whoBuyIndex: 0, whoBuyName: "non", houseLevel: 0)
+                var gameMapInformationMatrix = [GameMapInformation]()
+                for i in 0..<16{
+                    gameMapInformation.mapIndex = i
+                    gameMapInformationMatrix.append(gameMapInformation)
+                }
+                
+                createGameMap(roomNumber: inviteNumber, mapItemNumbrt: 16, gameMapInmformation: gameMapInformationMatrix)
+                createGamePlayer(roomNumber: inviteNumber, email: email, gamePlayer: gamePlayer)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2){
+                 currentpage = pages.GameView
 //                       AVPlayer.waitQueuePlayer.removeAllItems()
 //                       AVPlayer.setupGameMusic()
 //                       AVPlayer.gameQueuePlayer.volume = Float(0.5)
 //                       AVPlayer.gameQueuePlayer.play()
-                   }
+                }
                })
         .onAppear(){
             fetchplayerInformation(roomID: inviteNumber, email: email) { result in
@@ -126,45 +144,40 @@ struct GameWaitView: View {
                 }
             }
             firebaseOfRoomdata.checkRoomsChange(roomID: inviteNumber){ result in
-//                switch result{
-//                case .success(let changetype):
-//                    if changetype == "added"{
-////                        frtchplayerInformation(roomID: inviteNumber) { result in
-////                            switch result {
-////                            case .success(let playerInformation):
-////                                firebaseOfRoomdata.player.removeAll()
-////                                for i in playerInformation.indices{
-////                                    let j = playerInformation.count-1-i
-////                                    firebaseOfRoomdata.player.append(playerInformation[j])
-////                                    fetchPlayersPhoto(email: firebaseOfRoomdata.player[i].personalemail){ result in
-////                                        switch result {
-////                                        case .success(let playerPhoto):
-////                                            firebaseOfRoomdata.playerphoto.append(playerPhoto)
-////                                            print("成功")
-////
-////                                        case .failure(let error):
-////                                            print("錯誤",error)
-////                                            break
-////                                        }
-////                                    }
-////                                }
-////                                print("確認人數",firebaseOfRoomdata.player)
-////                            case .failure(_):
-////                                print("錯誤")
-////                                break
-////                            }
-//                        }
-//                    }else if changetype == "modified"{
-//
-//                    }else if changetype == "removed"{
-//
-//                    }
-//
-//                case .failure(_):
-//                    break
-//                }
+                switch result{
+                case .success(let changeType):
+                    if changeType == "removed"{
+                        if firebaseOfRoomdata.player.isEmpty{
+                            firebaseOfRoomdata.deleteroom(roomID: inviteNumber)
+                        }
+                    }else if changeType == "modified"{
+                        var temp = false
+                        for i in firebaseOfRoomdata.player.indices {
+                            if !firebaseOfRoomdata.player[i].isready {
+                                temp = true
+                            }
+                        }
+                        couldStartGameBtndisable = temp
+                    }else if changeType == "added"{
+                        
+                    }
+                case .failure(_):
+                    break
+                }
             }
-
+            firebaseOfRoomdata.checkGameStart(roomID: inviteNumber) { result in
+                switch result{
+                case .success(let roomCheck):
+                    if roomCheck.isGameStart{
+                        money = String(roomCheck.money)
+                        print("成功")
+                        NotificationCenter.default.post(name: NSNotification.Name("game start"), object: nil)
+                    }
+                    print("失敗")
+                case .failure(_):
+                    break
+                }
+            }
             
             
         }
@@ -198,7 +211,7 @@ struct PlayrtView: View {
             HStack{
                 if index < firebaseOfRoomdata.playerphoto.count && index < firebaseOfRoomdata.player.count{
                     Spacer()
-                    KFImage(firebaseOfRoomdata.playerphoto[index].photoURL)
+                    KFImage(URL(string: firebaseOfRoomdata.player[index].photoURL))
                         .resizable()
                         .scaledToFit()
                         .frame(width: 30, height: 30, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
@@ -223,7 +236,7 @@ struct PlayrtView: View {
             .frame(width: 150)
             .background(Color.orange)
             if index < firebaseOfRoomdata.player.count{
-                RoleView(showChangeRole: $showChangeRole, roleChose: $firebaseOfRoomdata.player[index].personalChoseRole)
+                RoleView(showChangeRole: $showChangeRole, roleChose: $firebaseOfRoomdata.player[index].personalChoseRole, playerIndex: $firebaseOfRoomdata.player[index].playerIndex)
             }
             
             if index < firebaseOfRoomdata.player.count{
@@ -263,6 +276,7 @@ struct PlayrtView: View {
 struct RoleView: View {
     @Binding var showChangeRole:Bool
     @Binding var roleChose: Int
+    @Binding var playerIndex: Int
     var body: some View {
         VStack{
             
@@ -295,7 +309,7 @@ struct RoleView: View {
                 }
                 Spacer()
             }
-            .background(Color.red)
+            .background(playerColor[playerIndex + 1])
             Image(Role[roleChose])
                 .resizable()
                 .scaledToFit()

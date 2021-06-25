@@ -14,7 +14,7 @@ struct MikeOnlinGameApp: App {
     
     var body: some Scene {
         WindowGroup {
-            PageController( image: UIImage(systemName: "photo")!)
+            PageController()
         }
     }
 }

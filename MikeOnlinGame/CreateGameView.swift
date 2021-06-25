@@ -5,7 +5,7 @@
 //  Created by 白謹瑜 on 2021/6/16.
 //
 
-//待處理 ： Firebase資料上傳、讀取及等待室建立的想法～
+
 
 import SwiftUI
 
@@ -61,7 +61,7 @@ struct CreateGameView: View {
                         }
                         HStack(alignment: .center){
                             Spacer()
-                            RoleView(showChangeRole: .constant(true), roleChose: $roleChose)
+                            RoleView(showChangeRole: .constant(true), roleChose: $roleChose, playerIndex: .constant(0))
                             Spacer()
                             if isCreater {
                                 VStack{
@@ -91,14 +91,27 @@ struct CreateGameView: View {
                                     let roomNumberID = Int.random(in: 1000...10000)
                                     roomNumber = String(roomNumberID)
                                     print(roomNumberID)
-                                    let roomData = roomData(roomNumber: String(roomNumberID), personalemail: firebaseData.playerOnce.email, personalnickName: firebaseData.player.nickName, personalChoseRole: roleChose, isHost: true, isready: false)
-                                    createRoom(roomData: roomData, roomNumber: String(roomNumberID), email: firebaseData.playerOnce.email)
+                                fetchPlayersPhoto(email: firebaseData.playerOnce.email) { result in
+                                    switch result{
+                                    case .success(let playerphotoURL):
+                                        
+                                        let roomData = roomData(roomNumber: String(roomNumberID), personalemail: firebaseData.playerOnce.email, personalnickName: firebaseData.player.nickName, personalChoseRole: roleChose, isHost: true, isready: true, photoURL: playerphotoURL.photoURL.absoluteString, playerIndex: 0)
+                                        createRoom(roomData: roomData, roomNumber: String(roomNumberID), email: firebaseData.playerOnce.email)
+                                        
+                                        let roomCheck = roomCheck(roomNumber: String(roomNumberID), isGameStart: false, money: Int(money))
+                                        createRoomCheck(roomCheck: roomCheck, roomNumber: String(roomNumberID), email: firebaseData.playerOnce.email)
+                                        currentPage = pages.GameWaitView
+                                    case .failure(_):
+                                        break
+                                    }
+                                }
+                                    
                                
                                    
  
                                    
                                 
-                                    currentPage = pages.GameWaitView
+                                    
                                    
                                 
                             }, label: {
@@ -121,12 +134,31 @@ struct CreateGameView: View {
                                     switch result {
                                     case .success(let isExist):
                                         if isExist{
-                                            let roomData = roomData(roomNumber: roomNumber, personalemail: firebaseData.playerOnce.email, personalnickName: firebaseData.player.nickName, personalChoseRole: roleChose, isHost: false, isready: false)
-                                            createRoom(roomData: roomData, roomNumber: roomNumber, email: firebaseData.playerOnce.email)
-                                           
-                                           
                                             
-                                            currentPage = pages.GameWaitView
+                                            checkRoomPlayerNumber(roomID: roomNumber) { result in
+                                                switch result{
+                                                case .success(let int):
+                                                    fetchPlayersPhoto(email: firebaseData.playerOnce.email) { result in
+                                                        switch result{
+                                                        case .success(let playerphotoURL):
+                                                            if int < 4{
+                                                                let roomData = roomData(roomNumber: roomNumber, personalemail: firebaseData.playerOnce.email, personalnickName: firebaseData.player.nickName, personalChoseRole: roleChose, isHost: false, isready: false, photoURL: playerphotoURL.photoURL.absoluteString, playerIndex: int)
+                                                                createRoom(roomData: roomData, roomNumber: roomNumber, email: firebaseData.playerOnce.email)
+                                                                currentPage = pages.GameWaitView
+                                                            }else{
+                                                                alertMessage = "房間已滿"
+                                                                showAlert = true
+                                                            }
+                                                           
+                                                        case .failure(_):
+                                                            break
+                                                        }
+                                                    }
+                                                case .failure(_):
+                                                    break
+                                                }
+                                            }
+                                            
                                             
                                         }else{
                                             alertMessage = "房間不存在"

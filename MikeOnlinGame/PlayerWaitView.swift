@@ -64,6 +64,7 @@ struct PlayerWaitView: View {
                         Capsule()
                             .foregroundColor(.red)
                     )
+                    .disabled(buttondisable)
                     Spacer()
                 }
                 .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color.blue/*@END_MENU_TOKEN@*/)
@@ -210,6 +211,7 @@ struct PlayerWaitView: View {
                                 Spacer()
                                 Text("個人檔案")
                                     .font(.title)
+                                    .foregroundColor(.black)
                                     .offset(x:35)
                                 Spacer()
                                 Button(action: {
@@ -237,6 +239,7 @@ struct PlayerWaitView: View {
                                         .scaledToFill()
                                         .frame(width: 60, height: 20)
                                 })
+                                .disabled(buttondisable)
                                 
                             }
                             .padding(.top, 5.0)
@@ -245,8 +248,11 @@ struct PlayerWaitView: View {
                                 HStack{
                                     Text("綽號：")
                                         .font(.title)
+                                        .foregroundColor(.black)
                                     Text(firebaseData.player.nickName)
                                         .font(.title)
+                                        .foregroundColor(.black)
+
                                         .multilineTextAlignment(.center)
                                         .frame(width: 200)
                                 }
@@ -254,28 +260,34 @@ struct PlayerWaitView: View {
                                     
                                     Text("性別 : ")
                                         .font(.title)
-                                   Text(firebaseData.player.gender)
-                                    .font(.title)
-                                    .multilineTextAlignment(.center)
-                                    .frame(width: 240)
+                                        .foregroundColor(.black)
+                                    Text(firebaseData.player.gender)
+                                        .font(.title)
+                                        .foregroundColor(.black)
+                                        .multilineTextAlignment(.center)
+                                        .frame(width: 240)
                                     
                                 }
                                 HStack{
                                     //                        Spacer()
                                     Text("星座 : ")
                                         .font(.title)
+                                        .foregroundColor(.black)
                                     Text(firebaseData.player.constellation)
-                                    .font(.title)
-                                    .clipped()
-                                    .shadow(radius: 30)
-                                    .frame(width: 240)
+                                        .font(.title)
+                                        .foregroundColor(.black)
+                                        .clipped()
+                                        .shadow(radius: 30)
+                                        .frame(width: 240)
                                 }
                                 
                                 HStack{
                                     Text("生日 : ")
                                         .font(.title)
+                                        .foregroundColor(.black)
                                     Text(firebaseData.player.birthday, style: .date)
                                         .font(.title)
+                                        .foregroundColor(.black)
                                         .multilineTextAlignment(.center)
                                         .frame(width: 230)
                                     
@@ -284,8 +296,10 @@ struct PlayerWaitView: View {
                                 HStack{
                                     Text("加入時間：")
                                         .font(.title)
+                                        .foregroundColor(.black)
                                     Text(date,style: .date)
                                         .font(.title)
+                                        .foregroundColor(.black)
                                 }
                             }
                             .padding(.horizontal, 3)

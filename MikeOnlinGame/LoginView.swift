@@ -9,6 +9,7 @@
 
 import SwiftUI
 import FirebaseAuth
+import AVFoundation
 
 struct LoginView: View {
     @Binding var currentPage:pages
@@ -24,6 +25,22 @@ struct LoginView: View {
     @State private var showPassword = false
     @State private var showpasswords = "eye.slash"
     @ObservedObject  var firebaseData : FirebaseData
+    
+    //音效處理：背景音樂播放的切換
+    static var bgQueuePlayer = AVQueuePlayer()
+    
+    static var bgPlayerLooper: AVPlayerLooper!
+    
+    static func setupBgMusic() {
+        guard let url = Bundle.main.url(forResource: "背景音樂", withExtension:"mp3")
+        else {
+            fatalError("Failed to find sound file.")
+            
+        }
+        let item = AVPlayerItem(url: url)
+        bgPlayerLooper = AVPlayerLooper(player: bgQueuePlayer, templateItem: item)
+    }
+    
     //這裡是按下登入後會跑得function ，記得直接登入做的function這裡也須要有。
     func login(playerAccoundLogin:String, playerPasswordLogin:String) {
         Auth.auth().signIn(withEmail: playerAccound, password: playerPassword) { result, error in
@@ -192,8 +209,11 @@ struct LoginView: View {
             let answer = alertMessage
             return Alert(title: Text(answer))
         })
+       
         .onAppear(){
-          
+            AVPlayer.setupBgMusic()
+            AVPlayer.bgQueuePlayer.play()
+            AVPlayer.bgQueuePlayer.volume = 0.3
             if let user = Auth.auth().currentUser {
                 print("\(user.uid) login")
                 playerAccound = user.email!
