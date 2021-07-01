@@ -16,6 +16,7 @@ struct Player: Codable, Identifiable {
     var birthday: Date
     var nickName: String
     var gender: String
+    var coins: Int
 }
 
 struct PlayerOnce: Codable, Identifiable {
@@ -33,23 +34,45 @@ struct PlayerPhoto:Codable, Identifiable {
 
 class FirebaseData: ObservableObject {
     
-    @Published var player = Player(constellation: "水瓶座", birthday: Date(), nickName: "", gender: "男")
+    @Published var player = Player(constellation: "水瓶座", birthday: Date(), nickName: "", gender: "男", coins: 3)
     @Published var playerOnce = PlayerOnce(playername: "", joinDate: Date(), email: "")
 
-    
+    func modifyPlayerCoins(email: String) {
+            let db = Firestore.firestore()
+            let documentReference =
+                db.collection("players").document(email)
+            documentReference.getDocument { document, error in
+                            
+              guard let document = document,
+                    document.exists,
+                    var player = try? document.data(as: Player.self)
+              else {
+                        return
+              }
+                player.coins = self.player.coins
+              do {
+                 try documentReference.setData(from: player)
+              } catch {
+                 print(error)
+              }
+                            
+            }
+    }
 }
 
 
 
 //新增(可更動)
-func createPlayer(storeData:Player, email:String) {
+func createPlayer(storeData:Player, email:String, completion: @escaping (Result<String,Error>)-> Void) {
     let db = Firestore.firestore()
     let player = storeData
     do {
 //        let documentReference = try db.collection("players").addDocument(from: player) // 不指定文件id
 //        print(documentReference.documentID)
         try db.collection("players").document(email).setData(from: player) // 指定id的寫法
+        completion(.success("success"))
     } catch {
+        completion(.failure(error))
         print(error)
     }
 }
@@ -174,6 +197,7 @@ func modifyPlayer(constellation:String, nickName:String, birthday:Date) {
                         
         }
 }
+
 //刪除
 func deleteData(collection:String, document:String){
     let db = Firestore.firestore()

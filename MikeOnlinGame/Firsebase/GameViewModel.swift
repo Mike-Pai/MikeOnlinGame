@@ -19,7 +19,7 @@ class Game: ObservableObject {
     @Published var players = [PlayerMove(), PlayerMove(), PlayerMove(), PlayerMove()] // 與玩家順序加入關聯 ~
     
     @Published var map1 = [
-        mapItem(index: 0, itemlevel: 1, itemName: "帝丹小學(起點)", x: 0, y: 100, playerColorIndex: 5),
+        mapItem(index: 0, itemlevel: 1, itemName: "帝丹郵局(起點)", x: 0, y: 100, playerColorIndex: 5),
         mapItem(index: 1, itemlevel: 0, itemName: "工藤宅", x: -55, y: 70, playerColorIndex: 0),
         mapItem(index: 2, itemlevel: 0, itemName: "米花圖書館", x: -110, y: 40, playerColorIndex: 0),
         mapItem(index: 3, itemlevel: 0, itemName: "赤井宅", x: -165, y: 10, playerColorIndex: 0),
@@ -101,6 +101,7 @@ class Game: ObservableObject {
                 anyCancellable = nil
                 completion("Move", currentPlayerIndex)
             }
+            
         })
         
         
@@ -331,6 +332,35 @@ class Game: ObservableObject {
         let db = Firestore.firestore()
         let documentReference = db.collection("rooms").document(roomID).collection("game").document(email)
         documentReference.delete()
+    }
+    func deletplayerMap(roomID:String){
+        let db = Firestore.firestore()
+        let documentReference = db.collection("rooms").document(roomID).collection("map").whereField("whoBuyIndex", isEqualTo: index )
+        documentReference.getDocuments { querySnapshot, error in
+            if let querySnapshot = querySnapshot {
+                var mapdelete = querySnapshot.documents.compactMap { snapshot in
+                    try? snapshot.data(as: GameMapInformation.self)
+                }
+                print(mapdelete)
+                for i in mapdelete.indices{
+                    mapdelete[i].houseLevel = 0
+                    mapdelete[i].whoBuyName = ""
+                    mapdelete[i].whoBuyIndex = 0
+                    guard let index1 = self.map1.firstIndex(where: {
+                        $0.index == mapdelete[i].mapIndex
+                    }) else { return }
+                    self.map1[index1].itemlevel = mapdelete[i].houseLevel
+                    self.map1[index1].playerColorIndex = mapdelete[i].whoBuyIndex
+                    self.map[index1] = mapdelete[i]
+                    self.changeMap(roomID: roomID, rolePosition: index1)
+                }
+                
+            }else{
+                if let error = error{
+                    print(error)
+                }
+            }
+        }
     }
     
 }

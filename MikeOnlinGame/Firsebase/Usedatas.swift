@@ -46,7 +46,6 @@ var playerColor = [
     Color.orange,
 ]
 
-
 //let map2 = [
 //    mapItem(itemlevel: 0, itemName: "帝丹小學(起點)", x: 0, y: -140),
 //    mapItem(itemlevel: 0, itemName: "工藤宅", x: -55, y: -110),

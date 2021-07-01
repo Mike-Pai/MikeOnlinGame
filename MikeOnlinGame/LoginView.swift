@@ -95,6 +95,11 @@ struct LoginView: View {
            
         }
     }
+    
+    func buttonTap() {
+            fatalError()
+        }
+
     var body: some View {
         VStack{
             Spacer()
@@ -109,55 +114,51 @@ struct LoginView: View {
                 .scaleEffect(2.5)
                 .offset(x: 10, y: -15)
                 .shadow(radius: 30)
-                .background(
-                    Image("彌豆子") //圖片還沒加哦
-                        .resizable()
-                        .scaledToFit()
-                        .rotationEffect(Angle(degrees: -30))
-                        .frame(width: 80, height: 80, alignment: .center)
-                        .offset(x: -185, y: -70)
-                )
-                .background(
-                    Image("善逸") //圖片還沒加哦
-                        .resizable()
-                        .scaledToFit()
-                        .rotationEffect(Angle(degrees: 30))
-                        .frame(width: 90, height: 90, alignment: .center)
-                        .offset(x: 190, y: -70)
-                )
-            
             HStack{
                 Text("帳號：")
                     .font(.title2)
-                    .padding(.leading, 100.0)
+                    .fontWeight(.bold)
+                    .padding(.leading, 50)
+                    .foregroundColor(.white)
                 TextField("********@email", text: $playerAccound)
                     .font(.title2)
                     .background(
                         Rectangle()
-                            .stroke()
+                            .opacity(/*@START_MENU_TOKEN@*/0.8/*@END_MENU_TOKEN@*/)
+                            .foregroundColor(.white)
                     )
+                    
             }
             .padding(.top, 35)
             HStack{
                 Text("密碼：")
                     .font(.title2)
-                    .padding(.leading, 100.0)
+                    .fontWeight(.heavy)
+                    .padding(.leading, 50)
+                    .foregroundColor(.white)
                 if showPassword {
                     TextField("請輸入至少六位數密碼", text: $playerPassword)
                         .font(.title2)
                         .background(
                             Rectangle()
-                                .stroke()
+                                .opacity(/*@START_MENU_TOKEN@*/0.8/*@END_MENU_TOKEN@*/)
+                                .foregroundColor(.white)
                         )
                 } else {
                     SecureField("請輸入至少六位數密碼", text: $playerPassword)
                         .font(.title2)
                         .background(
                             Rectangle()
-                                .stroke()
+                                .opacity(/*@START_MENU_TOKEN@*/0.8/*@END_MENU_TOKEN@*/)
+                                .foregroundColor(.white)
                         )
                 }
                 Image(systemName: showpasswords)
+                    .background(
+                        Rectangle()
+                            .opacity(/*@START_MENU_TOKEN@*/0.8/*@END_MENU_TOKEN@*/)
+                            .foregroundColor(.white)
+                    )
                     .foregroundColor(.gray)
                     .onTapGesture {
                         showPassword.toggle()
@@ -196,6 +197,14 @@ struct LoginView: View {
                         .foregroundColor(.blue)
                 )
                 Spacer()
+                Button(action: buttonTap, label: {
+                            Text("Crash")
+                                .foregroundColor(.white)
+                        })
+                .background(
+                    Capsule()
+                        .foregroundColor(.blue)
+                )
             }
             .offset(y: 30)
             Spacer()
@@ -212,7 +221,7 @@ struct LoginView: View {
        
         .onAppear(){
             AVPlayer.setupBgMusic()
-            AVPlayer.bgQueuePlayer.play()
+//            AVPlayer.bgQueuePlayer.play()
             AVPlayer.bgQueuePlayer.volume = 0.3
             if let user = Auth.auth().currentUser {
                 print("\(user.uid) login")
@@ -262,7 +271,7 @@ struct LoginView: View {
             }
         }
         .background(
-            Image("Image1")
+            Image("Image")
                 .resizable()
                 .scaledToFill()
                 .ignoresSafeArea()

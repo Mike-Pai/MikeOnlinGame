@@ -84,7 +84,7 @@ struct GameWaitView: View {
                 }
             }, label: {
                 RoundedRectangle(cornerRadius: 5)
-                    .foregroundColor(.yellow)
+                    .foregroundColor(!firebaseOfRoomdata.playerself.isHost ? .yellow : couldStartGameBtndisable ? .gray : .yellow)
                     .overlay(
                         Text(firebaseOfRoomdata.playerself.isHost ? "開 始 遊 戲" : firebaseOfRoomdata.playerself.isready ? "取消準備" : "準    備")
                             .foregroundColor(.black)
@@ -135,6 +135,8 @@ struct GameWaitView: View {
                 }
                })
         .onAppear(){
+            firebaseOfRoomdata.player.removeAll()
+            firebaseOfRoomdata.playerphoto.removeAll()
             fetchplayerInformation(roomID: inviteNumber, email: email) { result in
                 switch result{
                 case .success(let playerInformation):

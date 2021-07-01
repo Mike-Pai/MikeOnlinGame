@@ -7,6 +7,7 @@
 
 import SwiftUI
 import FirebaseAuth
+import AppTrackingTransparency
 
 enum pages{
     case LoginView, PlayerWaitView, RegisteView, CreateRoleView, GameWaitView, GameView
@@ -29,6 +30,24 @@ struct PageController: View {
     @State var uiImage4 = ""
     @StateObject var firebaseData = FirebaseData()
     @StateObject var firebaseOfRoomdata = FirebaseDataOfRoom()
+    
+    func requestTracking() {
+        ATTrackingManager.requestTrackingAuthorization { status in
+            switch status {
+            case .notDetermined:
+                break
+            case .restricted:
+                break
+            case .denied:
+                break
+            case .authorized:
+                break
+            @unknown default:
+                break
+            }
+        }
+    }
+    
     var body: some View {
         ZStack{
             switch currentPage
@@ -40,19 +59,16 @@ struct PageController: View {
             case pages.CreateRoleView: CreateRoleView(currentpage: $currentPage, uiImage: $image, email: $email)
            
             case pages.GameWaitView: GameWaitView( currentpage: $currentPage, email: $email, inviteNumber: $inviteNumber, firebaseData:  firebaseData).environmentObject(firebaseOfRoomdata)
-            case pages.GameView: GameView().environmentObject(firebaseOfRoomdata)
+            case pages.GameView: GameView(currentpage: $currentPage).environmentObject(firebaseOfRoomdata)
                 
             }
         }
        
-//        .onAppear(){
-//            do {
-//                try Auth.auth().signOut()
-//                currentPage = pages.LoginView
-//            } catch {
-//                print(error)
-//            }
-//        }
+        .onAppear(){
+            
+            requestTracking()
+            
+        }
         
     }
 }

@@ -11,6 +11,7 @@ import SwiftUI
 //付錢系統目前有BUG ！
 
 struct GameView: View {
+    @Binding var currentpage : pages
     @State var size = CGSize(width: 70, height: 70)
     @State var rolePosition = 0
     @State var rolePositionBuildType = 0
@@ -21,6 +22,12 @@ struct GameView: View {
     @StateObject var firebaseOfGameData = Game()
     @State var showPayInformation = false
     @State var payMoney = 0
+    @State private var dice1 = 1
+    @State private var dice2 = 1
+    @State var showdices = false
+    @State var showMoneyReceive = false
+    @State var showBreakruptcy = false
+    @State var showRichView = false
     func locationx(forPlayerIndex index: Int) -> CGFloat {
         firebaseOfGameData.map1[firebaseOfGameData.players[index].currentLocation].x
     }
@@ -39,139 +46,145 @@ struct GameView: View {
                     .resizable()
                     .scaledToFill()
                     .ignoresSafeArea()
-
-            ForEach( Array(firebaseOfGameData.map1.enumerated()),id:\.element.id) { index, item in
-                Rectangle()
-                    .foregroundColor(firebaseOfGameData.playerColor[item.playerColorIndex])
-                    .modifier(IsometricViewModifier())
-                    .frame(width: size.width, height: size.height, alignment: .center)
-                    .offset(x: item.x, y: item.y)
-               
+            Group{
+                ForEach( Array(firebaseOfGameData.map1.enumerated()),id:\.element.id) { index, item in
+                    Rectangle()
+                        .foregroundColor(firebaseOfGameData.playerColor[item.playerColorIndex])
+                        .modifier(IsometricViewModifier())
+                        .frame(width: size.width, height: size.height, alignment: .center)
+                        .offset(x: item.x, y: item.y)
                     
-                GameRoadView(size: $size, roadText: binding(for: item).itemName)
-                    .offset(x: item.x, y: item.y)
-                
-            }
-            .offset(y: 20)
-           
-            ForEach( Array(firebaseOfGameData.map1.enumerated()),id:\.element.id) { index, item in
-                if item.itemlevel == 1{
-                    Image(firebaseOfGameData.hosel1[index].level1)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: size.width + 10, height: size.height, alignment: .center)
-                    .offset(x: item.x, y: item.y - 10)
-                }else if item.itemlevel == 2{
-                    Image(firebaseOfGameData.hosel1[index].level2)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: size.width, height: size.height, alignment: .center)
-                    .offset(x: item.x, y: item.y - 10)
-                }else if item.itemlevel == 3{
-                    //階段三
-                    Image(firebaseOfGameData.hosel1[index].level3)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: size.width, height: size.height, alignment: .center)
-                    .offset(x: item.x, y: item.y - 10)
-                }else{
-                   
+                    
+                    GameRoadView(size: $size, roadText: binding(for: item).itemName)
+                        .offset(x: item.x, y: item.y)
+                    
                 }
-            }
-            .offset(y: 20)
-           
-            if firebaseOfRoomdata.player.count > 0 && firebaseOfGameData.gamePlayers.count > 0{
+                .offset(y: 20)
                 
-                Image(Role[firebaseOfRoomdata.player[0].personalChoseRole])
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 35, height: 35, alignment: .center)
-                    .offset(x: locationx(forPlayerIndex: 0), y: locationy(forPlayerIndex: 0)+20)
-                VStack{
-                    HStack{
-                        Image(Role[firebaseOfRoomdata.player[0].personalChoseRole])
+                ForEach( Array(firebaseOfGameData.map1.enumerated()),id:\.element.id) { index, item in
+                    if item.itemlevel == 1{
+                        Image(firebaseOfGameData.hosel1[index].level1)
                             .resizable()
                             .scaledToFit()
-                            .frame(width: 20,height: 30, alignment: .center)
-                        Text(firebaseOfRoomdata.player[0].personalnickName)
+                            .frame(width: size.width + 10, height: size.height, alignment: .center)
+                            .offset(x: item.x, y: item.y - 10)
+                    }else if item.itemlevel == 2{
+                        Image(firebaseOfGameData.hosel1[index].level2)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: size.width, height: size.height, alignment: .center)
+                            .offset(x: item.x, y: item.y - 10)
+                    }else if item.itemlevel == 3{
+                        //階段三
+                        Image(firebaseOfGameData.hosel1[index].level3)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: size.width, height: size.height, alignment: .center)
+                            .offset(x: item.x, y: item.y - 10)
                     }
-                    .background(firebaseOfGameData.playerColor[firebaseOfRoomdata.player[0].playerIndex + 1])
+                }
+                .offset(y: 20)
+            }
+            
+            Group{
+                if firebaseOfRoomdata.player.count > 0 && firebaseOfGameData.gamePlayers.count > 0{
                     
-                    Text("財產：\(firebaseOfGameData.gamePlayers[0].money)")
+                    Image(Role[firebaseOfRoomdata.player[0].personalChoseRole])
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 35, height: 35, alignment: .center)
+                        .offset(x: locationx(forPlayerIndex: 0), y: locationy(forPlayerIndex: 0)+20)
+                    VStack{
+                        HStack{
+                            Image(Role[firebaseOfRoomdata.player[0].personalChoseRole])
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 20,height: 30, alignment: .center)
+                            Text(firebaseOfRoomdata.player[0].personalnickName)
+                        }
                         .background(firebaseOfGameData.playerColor[firebaseOfRoomdata.player[0].playerIndex + 1])
-                }
-                .offset(x: -300 ,y: -125)
-            }
-            if firebaseOfRoomdata.player.count > 1 && firebaseOfGameData.gamePlayers.count > 1{
-                Image(Role[firebaseOfRoomdata.player[1].personalChoseRole])
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 35, height: 35, alignment: .center)
-                    .offset(x: locationx(forPlayerIndex: 1)+roleOffset[1].x, y: locationy(forPlayerIndex: 1)+roleOffset[1].y+20)
-                VStack{
-                    HStack{
-                        Image(Role[firebaseOfRoomdata.player[1].personalChoseRole])
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 20,height: 30, alignment: .center)
-                        Text(firebaseOfRoomdata.player[1].personalnickName)
+                        
+                        Text("財產：\(firebaseOfGameData.gamePlayers[0].money)")
+                            .background(firebaseOfGameData.playerColor[firebaseOfRoomdata.player[0].playerIndex + 1])
                     }
-                    .background(firebaseOfGameData.playerColor[firebaseOfRoomdata.player[1].playerIndex + 1])
-                   
+                    .offset(x: -300 ,y: -125)
+                }
+                if firebaseOfRoomdata.player.count > 1 && firebaseOfGameData.gamePlayers.count > 1{
+                    Image(Role[firebaseOfRoomdata.player[1].personalChoseRole])
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 35, height: 35, alignment: .center)
+                        .offset(x: locationx(forPlayerIndex: 1)+roleOffset[1].x, y: locationy(forPlayerIndex: 1)+roleOffset[1].y+20)
+                    VStack{
+                        HStack{
+                            Image(Role[firebaseOfRoomdata.player[1].personalChoseRole])
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 20,height: 30, alignment: .center)
+                            Text(firebaseOfRoomdata.player[1].personalnickName)
+                        }
+                        .background(firebaseOfGameData.playerColor[firebaseOfRoomdata.player[1].playerIndex + 1])
+                        
                         Text("財產：\(firebaseOfGameData.gamePlayers[1].money)")
                             .background(firebaseOfGameData.playerColor[firebaseOfRoomdata.player[1].playerIndex + 1])
-                }
-                .offset(x: -300 ,y: 125)
-            }
-            if firebaseOfRoomdata.player.count > 2 && firebaseOfGameData.gamePlayers.count > 2{
-                Image(Role[firebaseOfRoomdata.player[2].personalChoseRole])
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 35, height: 35, alignment: .center)
-                    .offset(x: locationx(forPlayerIndex: 2)+roleOffset[2].x, y: locationy(forPlayerIndex: 2)+roleOffset[2].y+20)
-                VStack{
-                    HStack{
-                        Image(Role[firebaseOfRoomdata.player[2].personalChoseRole])
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 20,height: 30, alignment: .center)
-                        Text(firebaseOfRoomdata.player[2].personalnickName)
                     }
-                    .background(firebaseOfGameData.playerColor[firebaseOfRoomdata.player[2].playerIndex + 1])
-                    
-                    Text("財產：\(firebaseOfGameData.gamePlayers[2].money)")
+                    .offset(x: -300 ,y: 125)
+                }
+                if firebaseOfRoomdata.player.count > 2 && firebaseOfGameData.gamePlayers.count > 2{
+                    Image(Role[firebaseOfRoomdata.player[2].personalChoseRole])
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 35, height: 35, alignment: .center)
+                        .offset(x: locationx(forPlayerIndex: 2)+roleOffset[2].x, y: locationy(forPlayerIndex: 2)+roleOffset[2].y+20)
+                    VStack{
+                        HStack{
+                            Image(Role[firebaseOfRoomdata.player[2].personalChoseRole])
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 20,height: 30, alignment: .center)
+                            Text(firebaseOfRoomdata.player[2].personalnickName)
+                        }
                         .background(firebaseOfGameData.playerColor[firebaseOfRoomdata.player[2].playerIndex + 1])
-                }
-                .offset(x: 300 ,y: -125)
-            }
-            if firebaseOfRoomdata.player.count > 3 && firebaseOfGameData.gamePlayers.count > 3{
-                Image(Role[firebaseOfRoomdata.player[3].personalChoseRole])
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 35, height: 35, alignment: .center)
-                    .offset(x: locationx(forPlayerIndex: 3)+roleOffset[3].x, y: locationy(forPlayerIndex: 3)+roleOffset[3].y+20)
-                VStack{
-                    HStack{
-                        Image(Role[firebaseOfRoomdata.player[3].personalChoseRole])
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 20,height: 30, alignment: .center)
-                        Text(firebaseOfRoomdata.player[3].personalnickName)
+                        
+                        Text("財產：\(firebaseOfGameData.gamePlayers[2].money)")
+                            .background(firebaseOfGameData.playerColor[firebaseOfRoomdata.player[2].playerIndex + 1])
                     }
-                    .background(firebaseOfGameData.playerColor[firebaseOfRoomdata.player[3].playerIndex + 1])
-                    
-                    Text("財產：\(firebaseOfGameData.gamePlayers[3].money)")
-                        .background(firebaseOfGameData.playerColor[firebaseOfRoomdata.player[3].playerIndex + 1])
+                    .offset(x: 300 ,y: -125)
                 }
-                .offset(x: 300 ,y: 125)
+                if firebaseOfRoomdata.player.count > 3 && firebaseOfGameData.gamePlayers.count > 3{
+                    Image(Role[firebaseOfRoomdata.player[3].personalChoseRole])
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 35, height: 35, alignment: .center)
+                        .offset(x: locationx(forPlayerIndex: 3)+roleOffset[3].x, y: locationy(forPlayerIndex: 3)+roleOffset[3].y+20)
+                    VStack{
+                        HStack{
+                            Image(Role[firebaseOfRoomdata.player[3].personalChoseRole])
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 20,height: 30, alignment: .center)
+                            Text(firebaseOfRoomdata.player[3].personalnickName)
+                        }
+                        .background(firebaseOfGameData.playerColor[firebaseOfRoomdata.player[3].playerIndex + 1])
+                        
+                        Text("財產：\(firebaseOfGameData.gamePlayers[3].money)")
+                            .background(firebaseOfGameData.playerColor[firebaseOfRoomdata.player[3].playerIndex + 1])
+                    }
+                    .offset(x: 300 ,y: 125)
+                }
             }
-           
             
            
             if firebaseOfGameData.gamePlayerSelf.isChangeToYou{
                 Button(action: {
-                    let goAheadStep = Int.random(in: 1...12)
+                    let goAheadStep1 = Int.random(in: 1...6)
+                    let goAheadStep2 = Int.random(in: 1...6)
+                    let goAheadStep = goAheadStep1 + goAheadStep2
                     firebaseOfGameData.gamePlayerSelf.isChangeToYou.toggle()
+                    dice1 = goAheadStep1
+                    dice2 = goAheadStep2
+                    showdices = true
+                    
                     firebaseOfGameData.playerGoahead(roomID: firebaseOfRoomdata.playerself.roomNumber, email: firebaseOfRoomdata.playerself.personalemail, goahead: goAheadStep) { result in
                         switch result{
                         case .success(let rolePosition):
@@ -190,10 +203,44 @@ struct GameView: View {
                     Image("骰子")
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 100, height: 100, alignment: .center)
+                        .frame(width: 150, height: 100, alignment: .center)
                         
                 })
-                .offset(x: 230, y: 100)
+               
+            }
+            if showdices {
+                VStack{
+                HStack{
+                    Image("骰子\(dice1)")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 75, height: 100, alignment: .center)
+                    Image("骰子\(dice2)")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 75, height: 100, alignment: .center)
+                  
+                }
+                    Text("前進\(dice1 + dice2)步")
+                        .fontWeight(.bold)
+                        .font(.title2)
+                        
+                        
+                        
+                    
+                }
+            }
+           
+            if showMoneyReceive{
+                VStack{
+                    Image("新台幣")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 150, height: 100, alignment: .center)
+                    Text("獲得錢錢 5000$")
+                        .fontWeight(.bold)
+                        .font(.title3)
+                }
             }
             if showBuymessage {
                 Rectangle()
@@ -488,8 +535,20 @@ struct GameView: View {
                         }
                     )
             }
+           
             
+            if showRichView{
+                RichView(name: $firebaseOfRoomdata.playerself.personalnickName, currentpage: $currentpage)
+                    .environmentObject(firebaseOfRoomdata)
+                    .environmentObject(firebaseOfGameData)
+            }
             
+            if showBreakruptcy{
+                BreakruptcyView(currentpage: $currentpage)
+                    .environmentObject(firebaseOfRoomdata)
+                    .environmentObject(firebaseOfGameData)
+                    
+            }
            
             
            
@@ -511,9 +570,14 @@ struct GameView: View {
             firebaseOfGameData.checkGamePlayerChange(roomID: firebaseOfRoomdata.playerself.roomNumber) { changetype,index,moveStep   in
                 roadText = firebaseOfGameData.map1[rolePosition].itemName
                 nowIndex = index
+                if firebaseOfGameData.gamePlayers.count == 1{
+                    showRichView = true
+                }
                 if changetype == "Move"{
                     firebaseOfGameData.playerMove(currentPlayerIndex: index, goAhead: moveStep) { message, playerIndex in
+                        showdices = false
                         if nowIndex != firebaseOfRoomdata.playerself.playerIndex{
+                           
                             return
                         }
                         if !(rolePosition % 2 == 0){
@@ -580,13 +644,18 @@ struct GameView: View {
                             }
                         }else if rolePosition == 0{
                             // 加錢錢
-                            
-                            //                        firebaseOfGameData.changToNextPlayer(roomID: firebaseOfRoomdata.playerself.roomNumber, email: firebaseOfRoomdata.playerself.personalemail)
-                            var nextIndex = index + 1
-                            if nextIndex > firebaseOfRoomdata.player.count - 1{
-                                nextIndex = 0
+                            showMoneyReceive = true
+                            firebaseOfGameData.gamePlayerSelf.money = firebaseOfGameData.gamePlayerSelf.money + 5000
+                            firebaseOfGameData.PayToPlayer(roomID: firebaseOfRoomdata.playerself.roomNumber, email: firebaseOfRoomdata.playerself.personalemail)
+                            DispatchQueue.main.asyncAfter(deadline: .now()+2) {
+                                showMoneyReceive = false
+                                var nextIndex = index + 1
+                                if nextIndex > firebaseOfRoomdata.player.count - 1{
+                                    nextIndex = 0
+                                }
+                                firebaseOfGameData.changToNextPlayer(roomID: firebaseOfRoomdata.playerself.roomNumber, email: firebaseOfRoomdata.player[nextIndex].personalemail)
                             }
-                            firebaseOfGameData.changToNextPlayer(roomID: firebaseOfRoomdata.playerself.roomNumber, email: firebaseOfRoomdata.player[nextIndex].personalemail)
+                            
                         }else if rolePosition == 4{
                             //                        firebaseOfGameData.changToNextPlayer(roomID: firebaseOfRoomdata.playerself.roomNumber, email: firebaseOfRoomdata.playerself.personalemail)
                             var nextIndex = index + 1
@@ -698,6 +767,10 @@ struct GameView: View {
                 switch result{
                 case .success(let gamePlayer):
                     firebaseOfGameData.gamePlayerSelf = gamePlayer
+                    if firebaseOfGameData.gamePlayerSelf.money < 0{
+                        showBreakruptcy = true
+                        firebaseOfGameData.deletegameplayer(roomID: firebaseOfRoomdata.playerself.roomNumber, email: firebaseOfRoomdata.playerself.personalemail)
+                    }
                 case .failure(_):
                     break
                     
@@ -706,7 +779,7 @@ struct GameView: View {
             firebaseOfGameData.checkGameMapChange(roomID: firebaseOfRoomdata.playerself.roomNumber) { Result in
                 
             }
-            
+
         }
         
 
@@ -715,8 +788,115 @@ struct GameView: View {
 
 struct GameView_Previews: PreviewProvider {
     static var previews: some View {
-        GameView()
+        GameView(currentpage: .constant(pages.GameView))
             .environmentObject(FirebaseDataOfRoom())
             .previewLayout(.fixed(width: 651, height: 297))
+    }
+}
+
+struct BreakruptcyView: View {
+    @Binding var currentpage : pages
+    @EnvironmentObject var firebaseOfRoomdata : FirebaseDataOfRoom
+    @EnvironmentObject var firebaseOfGameData : Game
+    var body: some View {
+        Image("破產")
+            .resizable()
+            .scaledToFit()
+            .frame(width: 500, height: 250, alignment: .center)
+            .overlay(
+                VStack{
+                    Spacer()
+                    Text("週轉不靈     您已破產")
+                        .font(.largeTitle)
+                        .fontWeight(.heavy)
+                        .foregroundColor(Color.red)
+                        .background(
+                            Rectangle()
+                                .stroke(lineWidth: 3)
+                                .foregroundColor(.red)
+                        )
+                        .rotationEffect(Angle(degrees: -20))
+                    Spacer()
+                    Button(action: {
+                        currentpage = pages.PlayerWaitView
+                    }, label: {
+                        Text("返回主頁")
+                            .font(.callout)
+                            .fontWeight(.bold)
+                            .foregroundColor(.white)
+                            .frame(width: 80)
+                            .background(
+                                Capsule()
+                                    .foregroundColor(.blue)
+                                
+                            )
+                    })
+                    .frame(width: 80)
+                }
+                
+            )
+    }
+}
+
+struct RichView: View {
+    @Binding var name :String
+    @Binding var currentpage : pages
+    @EnvironmentObject var firebaseOfRoomdata : FirebaseDataOfRoom
+    @EnvironmentObject var firebaseOfGameData : Game
+    var body: some View {
+        Image("大富翁")
+            .resizable()
+            .scaledToFit()
+            .frame(width: 500, height: 250, alignment: .center)
+            .overlay(
+                VStack{
+                    Spacer()
+                    Text("恭喜\(name)成為米花首富")
+                        .font(.largeTitle)
+                        .fontWeight(.heavy)
+                        .foregroundColor(Color.yellow)
+                        .background(
+                            Rectangle()
+                                .stroke(lineWidth: 3)
+                                .foregroundColor(.white)
+                        )
+                    Spacer()
+                    HStack{
+                        Button(action: {
+                            currentpage = pages.PlayerWaitView
+                        }, label: {
+                            Text("排行榜")
+                                .font(.callout)
+                                .fontWeight(.bold)
+                                .foregroundColor(.white)
+                                .frame(width: 80)
+                                .background(
+                                    Capsule()
+                                        .foregroundColor(.blue)
+                                    
+                                )
+                        })
+                        .frame(width: 80)
+                        Button(action: {
+                            
+                        }, label: {
+                            Text("返回主頁")
+                                .font(.callout)
+                                .fontWeight(.bold)
+                                .foregroundColor(.white)
+                                .frame(width: 80)
+                                .background(
+                                    Capsule()
+                                        .foregroundColor(.red)
+                                    
+                                )
+                        })
+                        .frame(width: 80)
+                        
+                    }
+                    .offset(y:20)
+                }
+                
+            )
     }
 }

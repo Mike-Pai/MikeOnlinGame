@@ -13,6 +13,8 @@ struct GameRoadView: View {
     @Binding var size :CGSize
     @Binding var roadText :String
     var body: some View {
+      
+        
             IsometricView(active: true, extruded: true, depth: 10) {
                 ZStack{
                    
@@ -30,7 +32,8 @@ struct GameRoadView: View {
             
             .frame(width: size.width, height: size.height, alignment: .center)
             .scaledToFit()
-        }
+        
+    }
     
 }
 

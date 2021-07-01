@@ -21,6 +21,7 @@
 		99AFC565268586D300FA078A /* 背景音樂.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 99AFC564268586D300FA078A /* 背景音樂.mp3 */; };
 		99AFF555267C6150008F6559 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 99AFF554267C6150008F6559 /* Kingfisher */; };
 		99AFF557267CD31C008F6559 /* Usedatas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99AFF556267CD31C008F6559 /* Usedatas.swift */; };
+		99C00D1E268CA75B00E4FA1F /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C00D1D268CA75A00E4FA1F /* SwiftUIView.swift */; };
 		99C26DB82626D1810076A62F /* MikeOnlinGameApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C26DB72626D1810076A62F /* MikeOnlinGameApp.swift */; };
 		99C26DBA2626D1810076A62F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C26DB92626D1810076A62F /* ContentView.swift */; };
 		99C26DBC2626D1820076A62F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 99C26DBB2626D1820076A62F /* Assets.xcassets */; };
@@ -58,6 +59,7 @@
 		99A1AB542673A702004C20E7 /* RegisteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisteView.swift; sourceTree = "<group>"; };
 		99AFC564268586D300FA078A /* 背景音樂.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "背景音樂.mp3"; sourceTree = "<group>"; };
 		99AFF556267CD31C008F6559 /* Usedatas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Usedatas.swift; sourceTree = "<group>"; };
+		99C00D1D268CA75A00E4FA1F /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
 		99C26DB42626D1810076A62F /* MikeOnlinGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MikeOnlinGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		99C26DB72626D1810076A62F /* MikeOnlinGameApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MikeOnlinGameApp.swift; sourceTree = "<group>"; };
 		99C26DB92626D1810076A62F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 				992FE834267F251F001E6195 /* GameRoadView.swift */,
 				9998AAEB2679E76B0039D8CF /* GameWaitView.swift */,
 				992FE838267F3EE4001E6195 /* GameView.swift */,
+				99C00D1D268CA75A00E4FA1F /* SwiftUIView.swift */,
 				99C6D9052675E94700974C6D /* WebView.swift */,
 				99C8854126777F4300F5B281 /* CreateRoleView.swift */,
 				99D24026265E303E00EEE696 /* AppDelegate.swift */,
@@ -352,6 +355,7 @@
 				9998AAEC2679E76B0039D8CF /* GameWaitView.swift in Sources */,
 				9998AAEE267A373B0039D8CF /* CreateGameView.swift in Sources */,
 				992FE839267F3EE4001E6195 /* GameView.swift in Sources */,
+				99C00D1E268CA75B00E4FA1F /* SwiftUIView.swift in Sources */,
 				99C6D90C267617A800974C6D /* PageController.swift in Sources */,
 				990A3AAC2672612800FBF9BC /* LoginView.swift in Sources */,
 				99C26DB82626D1810076A62F /* MikeOnlinGameApp.swift in Sources */,

@@ -31,6 +31,7 @@ struct PlayerWaitView: View {
     @Binding var image:UIImage?
     @Binding var roomNumber:String
 
+
     
     let genders = ["男", "女","其他"]
     let constellations = ["未公開","魔羯座", "水瓶座", "雙魚座", "牡羊座", "金牛座", "雙子座", "巨蟹座", "獅子座", "處女座", "天秤座", "天蠍座", "射手座", ]
@@ -65,7 +66,21 @@ struct PlayerWaitView: View {
                             .foregroundColor(.red)
                     )
                     .disabled(buttondisable)
-                    Spacer()
+                    Text("入場券：")
+                    HStack{
+                        ForEach(0..<3){ index in
+                            ZStack{
+                                if index  < firebaseData.player.coins{
+                                    Image(systemName: "seal.fill")
+                                }
+                              
+                                    Image(systemName: "seal")
+                                
+                            }
+                        }
+                        
+                    }
+                    
                 }
                 .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color.blue/*@END_MENU_TOKEN@*/)
                 if showEidtorView{
@@ -154,20 +169,31 @@ struct PlayerWaitView: View {
                                 Color.white.opacity(0.8).cornerRadius(20)
                             )
                             Button(action: {
-                                
-                                let player = Player(constellation: constellation, birthday: birthday, nickName: nickname, gender: gender)
-                                createPlayer(storeData: player, email: email)
-                                showEidtorView = false
-                                fetchPlayers(email: email){ result in
-                                    switch result {
-                                        case .success(let player):
-                                            firebaseData.player = player
-                                            
-                                        case .failure(let error):
-                                            print(error)
+                                firebaseData.player.birthday = birthday
+                                firebaseData.player.constellation = constellation
+                                firebaseData.player.gender = gender
+                                firebaseData.player.nickName = nickname
+                                let player = Player(constellation: constellation, birthday: birthday, nickName: nickname, gender: gender, coins: firebaseData.player.coins)
+                                createPlayer(storeData: player, email: email){ result in
+                                    switch result{
+                                    case .success(_):
+                                        showEidtorView = false
+                                        fetchPlayers(email: email){ result in
+                                            switch result {
+                                                case .success(let player):
+                                                    firebaseData.player = player
+                                                    
+                                                case .failure(let error):
+                                                    print(error)
+                                                break
+                                            }
+                                        }
+                                    case .failure(_):
                                         break
                                     }
+                                    
                                 }
+                                
                             }, label: {
                                 Text("確認")
                                     .font(.title)
@@ -226,10 +252,10 @@ struct PlayerWaitView: View {
                                                 nickname = nameTempUse
                                                 gender = genderTempUse
                                                 birthday = birthdayTempUse
-                                                
+                                                constellation = firebaseData.player.constellation
                                             case .failure(let error):
                                                 print(error)
-                                            break
+                                            
                                         }
                                     }
                                     
@@ -368,12 +394,17 @@ struct PlayerWaitView: View {
             }
         }
         .background(
-            Image("Image1")
+            Image("Image")
                 .resizable()
                 .scaledToFill()
                 .ignoresSafeArea()
         )
-       
+        .onAppear(){
+             birthday = firebaseData.player.birthday
+            constellation = firebaseData.player.constellation
+             gender = firebaseData.player.gender
+            nickname = firebaseData.player.nickName
+        }
     }
     
     

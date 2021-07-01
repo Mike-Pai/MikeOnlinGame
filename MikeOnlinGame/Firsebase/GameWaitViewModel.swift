@@ -15,7 +15,7 @@ class FirebaseDataOfRoom: ObservableObject {
     @Published var player = [roomData]()
     @Published var playerphoto = [PlayerPhoto]()
     @Published var playerself = roomData(roomNumber: "", personalemail: "", personalnickName: "", personalChoseRole: 0, isHost: true, isready: false, photoURL: "", playerIndex: 0 )
-  
+ 
 //    func gameDetect(id: String, completion: @escaping (Game) -> Void) {
 //           print("start game detect")
 //           if self.gameListener != nil {
@@ -71,8 +71,11 @@ class FirebaseDataOfRoom: ObservableObject {
                         $0.id == player.id
                     }) else { return }
                     self.player.remove(at: index)
-                    self.playerphoto.remove(at: index)
+                    
                     completion(.success("removed"))
+                    if index == self.playerself.playerIndex{
+                        
+                    }
                 }
             }
         }

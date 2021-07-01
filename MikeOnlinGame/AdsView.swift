@@ -45,6 +45,7 @@ struct AdsView: View {
         }
         .onAppear(perform: {
             requestTracking()
+            
         })
         
     }

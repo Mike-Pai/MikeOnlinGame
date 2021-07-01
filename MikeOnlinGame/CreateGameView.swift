@@ -8,6 +8,7 @@
 
 
 import SwiftUI
+import GoogleMobileAds
 
 struct CreateGameView: View {
     @ObservedObject var firebaseData : FirebaseData
@@ -26,6 +27,8 @@ struct CreateGameView: View {
     @State var alertMessage = ""
     @State var roleChose = 0
     
+    let rewordAdController = RewardedAdController()
+   
     var body: some View {
         ZStack{
             Rectangle()
@@ -85,33 +88,43 @@ struct CreateGameView: View {
                         }
                         if isCreater {
                             Button(action: {
+                                if firebaseData.player.coins > 0{
+                                    firebaseData.player.coins = firebaseData.player.coins - 1
+                                    firebaseData.modifyPlayerCoins(email: firebaseData.playerOnce.email)
                                     buttondisable = false
                                     radius = 0
                                     showCreategame = false
                                     let roomNumberID = Int.random(in: 1000...10000)
                                     roomNumber = String(roomNumberID)
                                     print(roomNumberID)
-                                fetchPlayersPhoto(email: firebaseData.playerOnce.email) { result in
-                                    switch result{
-                                    case .success(let playerphotoURL):
-                                        
-                                        let roomData = roomData(roomNumber: String(roomNumberID), personalemail: firebaseData.playerOnce.email, personalnickName: firebaseData.player.nickName, personalChoseRole: roleChose, isHost: true, isready: true, photoURL: playerphotoURL.photoURL.absoluteString, playerIndex: 0)
-                                        createRoom(roomData: roomData, roomNumber: String(roomNumberID), email: firebaseData.playerOnce.email)
-                                        
-                                        let roomCheck = roomCheck(roomNumber: String(roomNumberID), isGameStart: false, money: Int(money))
-                                        createRoomCheck(roomCheck: roomCheck, roomNumber: String(roomNumberID), email: firebaseData.playerOnce.email)
-                                        currentPage = pages.GameWaitView
-                                    case .failure(_):
-                                        break
+                                    fetchPlayersPhoto(email: firebaseData.playerOnce.email) { result in
+                                        switch result{
+                                        case .success(let playerphotoURL):
+                                            
+                                            let roomData = roomData(roomNumber: String(roomNumberID), personalemail: firebaseData.playerOnce.email, personalnickName: firebaseData.player.nickName, personalChoseRole: roleChose, isHost: true, isready: true, photoURL: playerphotoURL.photoURL.absoluteString, playerIndex: 0)
+                                            createRoom(roomData: roomData, roomNumber: String(roomNumberID), email: firebaseData.playerOnce.email)
+                                            
+                                            let roomCheck = roomCheck(roomNumber: String(roomNumberID), isGameStart: false, money: Int(money))
+                                            createRoomCheck(roomCheck: roomCheck, roomNumber: String(roomNumberID), email: firebaseData.playerOnce.email)
+                                            currentPage = pages.GameWaitView
+                                        case .failure(_):
+                                            break
+                                        }
                                     }
+                                }else{
+                                    
+                                    firebaseData.player.coins = firebaseData.player.coins + 1
+                                    rewordAdController.showAd()
+                                    
                                 }
-                                    
-                               
-                                   
- 
-                                   
                                 
-                                    
+                                
+                                
+                                
+                                
+                                
+                                
+                                
                                    
                                 
                             }, label: {
@@ -201,6 +214,9 @@ struct CreateGameView: View {
             let answer = alertMessage
             return Alert(title: Text(answer))
         })
+        .onAppear(){
+            rewordAdController.loadAd()
+        }
         
     }
 }
